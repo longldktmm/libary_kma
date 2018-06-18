@@ -13,9 +13,9 @@
 
 
 
-//Route::get('login', function () {
-//    return view('user/home');
-//});
+Route::get('/', function () {
+    return redirect('/login');
+});
 
 
 Route::group(['middleware' => 'auth'], function() {
