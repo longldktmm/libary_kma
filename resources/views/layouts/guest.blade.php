@@ -91,7 +91,7 @@
                 <div class="pull-right hidden-xs">
                     <b>Version</b> 1.0.0
                 </div>
-                <strong>Copyright &copy; 2018-2018 <a href="https://aivynet.net">Aivy Studio</a>.</strong> All rights
+                <strong>Copyright &copy; 2018-2018 <a href="https://kma.net">Group 4 Studio</a>.</strong> All rights
                 reserved.
             </footer>
 
