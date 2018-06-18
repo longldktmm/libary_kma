@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/admin/account/edit/{id}', "Admin\Account@postEdit");
 
         Route::get('/admin/document/', "Admin\Document@getAll");
+        Route::get('/admin/document/all', "Admin\Document@getAll");
         Route::get('/admin/document/add', "Admin\Document@getAdd");
         Route::post('/admin/document/add', "Admin\Document@postAdd");
         Route::get('/admin/document/delete/{id}', "Admin\Document@delete");

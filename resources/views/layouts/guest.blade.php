@@ -44,7 +44,7 @@
 
             <header class="main-header">
                 <!-- Logo -->
-                <a href="index2.html" class="logo">
+                <a href="" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>K</b>MA</span>
                     <!-- logo for regular state and mobile devices -->
@@ -69,11 +69,11 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="{{url('admin/exam/add')}}"><i class="fa fa-circle-o"></i> Tài liệu đã trả</a></li>
-                                <li><a href="{{url('admin/question/all')}}"><i class="fa fa-circle-o"></i> Tài liệu đã mượn</a></li>
+                                <li><a href=""><i class="fa fa-circle-o"></i> Tài liệu đã trả</a></li>
+                                <li><a href=""><i class="fa fa-circle-o"></i> Tài liệu đã mượn</a></li>
                             </ul>
                         </li>
-                        <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Tài khoản</span></a></li>
+                        <li><a href=""><i class="fa fa-book"></i> <span>Tài khoản</span></a></li>
                         <li class="header">CHĂM SÓC KHÁCH HÀNG</li>
                         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Báo lỗi</span></a></li>
                     </ul>
