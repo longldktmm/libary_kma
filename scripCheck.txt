@@ -1,0 +1,40 @@
+<script language="javascript">
+    function XSSAndSQL(objStr) {
+    var iCheck = false;
+    var arrValue = objectValues(objStr); //Lấy ra mảng các giá trị
+    for (i = 0; i < arrValue.length; i++) {
+    if (((typeof arrValue[i]) == "string") && CheckSecurity(arrValue[i])) { //Là string và vi phạm XSS-SQL
+    iCheck = true;
+    break;
+    }
+    }
+    if (iCheck)
+            AlertMessSwal("Chứa nội dung không hợp lệ (XSS Or SQL) - Client");
+    return iCheck;
+    }
+    function CheckSecurity(strValue) {
+    var key = ["script", "</script>", "<a", "</a>", "<object>", "</object>", "<applet>", "</applet>", "alert(", "select", "insert", "update", "delete"];
+    for (i = 0; i < key.length; i++) {
+    if (strValue.toLowerCase().replace(/ /g, '').includes(key[i]))
+    return true;
+    }
+    return false;
+    }
+
+</script>
+<script>
+            function Add() {
+            var uc = {
+            Check1: $("#input_course").val(),
+                    Check2: $("#input_address").val(),
+                    Check3: $("#input_avatar").val(),
+                    Check4: $("#input_classroom").val(),
+                    Check5: $("#input_user_name").val(),
+                    Check6: $("#input_username").val()
+            };
+            console.log("checl" + JSON.stringify(uc);
+            if (XSSAndSQL(uc))
+                    return false;
+            return false;
+            }
+</script>
