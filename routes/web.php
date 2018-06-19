@@ -11,10 +11,8 @@
   |
  */
 Route::group(['middleware' => 'auth'], function() {
-//    Route::get('/', function () {
-//        return view('user/home');
-//    });
     Route::get('', "User\SuggestDocument@getAll");
+    Route::get('home', "User\SuggestDocument@getAll");
     Route::get('/myaccount', "User\MyAccount@get");
     Route::post('/myaccount', "User\MyAccount@post");
     Route::post('/myaccount/changepassword', "User\MyAccount@changePwd");
