@@ -43,7 +43,7 @@
         <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->
-                <a href="index2.html" class="logo">
+                <a href="{{url('admin')}}" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>K</b>MA</span>
                     <!-- logo for regular state and mobile devices -->
@@ -151,12 +151,12 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="{{url('admin/classroom/all')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa Vi phạm</a></li>
-                                <li><a href="{{url('admin/classroom/all')}}"><i class="fa fa-circle-o"></i> Thêm vi phạm</a></li>
+                                <li><a href="{{url('admin')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa Vi phạm</a></li>
+                                <li><a href="{{url('admin')}}"><i class="fa fa-circle-o"></i> Thêm vi phạm</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a href="{{url('/admin/account/myaccount')}}">
+                            <a href="{{url('admin')}}">
                                 <i class="fa fa-files-o"></i>
                                 <span>Quản lý gợi ý tài liệu</span>
                                 <span class="pull-right-container">
@@ -164,8 +164,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="{{url('admin/classroom/all')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa</a></li>
-                                <li><a href="{{url('admin/classroom/all')}}"><i class="fa fa-circle-o"></i> Thêm gợi ý</a></li>
+                                <li><a href="{{url('admin')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa</a></li>
+                                <li><a href="{{url('admin')}}"><i class="fa fa-circle-o"></i> Thêm gợi ý</a></li>
                             </ul>
                         </li>
                         <li><a href="{{url('/admin/account/myaccount')}}"><i class="fa fa-book"></i> <span>Tài khoản cá nhân</span></a></li>

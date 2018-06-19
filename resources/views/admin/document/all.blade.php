@@ -10,7 +10,7 @@
         <small> Tài liệu</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Tài liệu</a></li>
+        <li><a href="{{url('admin')}}"><i class="fa fa-dashboard"></i> Tài liệu</a></li>
         <li class="active"> Xem hoặc chỉnh sửa</li>
     </ol>
 </section>

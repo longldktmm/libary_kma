@@ -9,7 +9,7 @@
         <small> Tài khoản</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Tài khoản</a></li>
+        <li><a href="{{url('admin')}}"><i class="fa fa-dashboard"></i> Tài khoản</a></li>
         <li class="active"> Thêm tài khoản</li>
     </ol>
 </section>

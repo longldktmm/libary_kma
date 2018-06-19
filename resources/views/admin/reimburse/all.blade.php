@@ -10,7 +10,7 @@
         <small> Trả TÀI LIỆU</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Quản lý mượn trả</a></li>
+        <li><a href="{{url('admin')}}"><i class="fa fa-dashboard"></i> Quản lý mượn trả</a></li>
         <li class="active"> Trả tài liệu</li>
     </ol>
 </section>

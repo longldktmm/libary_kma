@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\TblRole;
+use App\TblLog;
 use App\TblDepartment;
 use Validator;
 
@@ -57,6 +58,13 @@ class Account extends Controller {
             $account->avatar = $request->input_avatar;
             $account->created_by = Auth::user()->username;
             $account->save();
+
+
+            //Tao Log
+            $log = new TblLog();
+            $log->message = "Đã thêm một tài khoản ".$request->input_user_name;
+            $log->created_by = Auth::user()->username;
+            $log->save();
             return redirect()->back()->with('success', 'Thêm thành công')->withInput();
         }
     }
@@ -77,6 +85,16 @@ class Account extends Controller {
         if ($account == "")
             return redirect()->back()->withErrors("Tài khoản không tồn tại")->withInput();
         $account->delete();
+        //Tao Log
+        $log = new TblLog();
+        $log->message = "Đã xóa một tài khoản ".$account->username;
+        $log->created_by = Auth::user()->username;
+        $log->save();
+        //Tao Log
+        $log = new TblLog();
+        $log->message = "Đã xóa một tài khoản ".$account;
+        $log->created_by = Auth::user()->username;
+        $log->save();
         return redirect()->back()->with('success', 'Xóa thành công');
     }
 
@@ -127,6 +145,11 @@ class Account extends Controller {
             $account->department = $request->input_department;
             $account->updated_by = Auth::user()->username;
             $account->save();
+            //Tao Log
+            $log = new TblLog();
+            $log->message = "Đã sửa một tài khoản ".$account->username;
+            $log->created_by = Auth::user()->username;
+            $log->save();
             return redirect(url('admin/account/all'))->with('success', 'Sửa thành công');
         }
     }

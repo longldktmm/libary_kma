@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\TblLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,6 +11,7 @@ use App\TblType;
 use App\TblDocument;
 use App\TblDepartment;
 use Validator;
+
 class Document extends Controller {
 
     public function postAdd(Request $request) {
@@ -50,6 +52,11 @@ class Document extends Controller {
             $document->department = $request->input_department;
             $document->created_by = Auth::user()->username;
             $document->save();
+            //Tao Log
+            $log = new TblLog();
+            $log->message = "Đã sửa một tài liệu".$document->id;
+            $log->created_by = Auth::user()->username;
+            $log->save();
             return redirect()->back()->with('success', 'Thêm thành công')->withInput();
         }
     }
@@ -71,6 +78,11 @@ class Document extends Controller {
         if ($document == "")
             return redirect()->back()->withErrors("Tài liệu không tồn tại")->withInput();
         $document->delete();
+        //Tao Log
+        $log = new TblLog();
+        $log->message = "Đã xóa một tài liệu".$document->id;
+        $log->created_by = Auth::user()->username;
+        $log->save();
         return redirect()->back()->with('success', 'Xóa thành công');
     }
 
@@ -122,6 +134,11 @@ class Document extends Controller {
             $document->borrow_by = $request->input_borrow_by;
             $document->updated_by = Auth::user()->username;
             $document->save();
+            //Tao Log
+            $log = new TblLog();
+            $log->message = "Đã sửa một tài liệu".$document->id;
+            $log->created_by = Auth::user()->username;
+            $log->save();
             return redirect(url('admin/document/all'))->with('success', 'Sửa thành công');
         }
     }

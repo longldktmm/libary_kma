@@ -1,12 +1,15 @@
 <?php
-namespace App\Http\Controllers\Auth;
-use App\Http\Controllers\Controller;
 
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use App\TblLog;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
 use Auth;
 use Illuminate\Support\MessageBag;
+
 class LoginController extends Controller {
 
     public function getLogout() {
@@ -38,6 +41,11 @@ class LoginController extends Controller {
             $password = $request->input('password');
 
             if (Auth::attempt(['username' => $username, 'password' => $password])) {
+                //Tao Log
+                $log = new TblLog();
+                $log->message = $username." đã đăng nhập";
+                $log->created_by = "System";
+                $log->save();
                 return redirect('');
             } else {
                 $errors = new MessageBag(['errorlogin' => 'Tên đăng nhập hoặc mật khẩu không đúng']);

@@ -9,10 +9,12 @@ use App\User;
 use App\TblReimburse;
 use App\TblDocument;
 use App\TblBorrow;
+use App\TblLog;
 use App\TblStatus;
 use Validator;
 use Webpatser\Uuid\Uuid;
 use DB;
+
 class Reimburse extends Controller {
 
     public function postAdd($username, Request $request) {
@@ -58,6 +60,11 @@ class Reimburse extends Controller {
 //Update tai lieu
             $document->borrow_by = "";
             $document->save();
+            //Tao Log
+            $log = new TblLog();
+            $log->message = "Đã trả một quyển sách ".$document->id;
+            $log->created_by = Auth::user()->username;
+            $log->save();
             return redirect()->back()->with('success', 'Trả thành công')->withInput();
         }
     }
@@ -66,7 +73,7 @@ class Reimburse extends Controller {
         $data['user'] = User::where('username', $username)->first();
         $data['status'] = TblStatus::all();
 //        $data['borrow'] = TblBorrow::where('username', $username)->get();
-         $data['borrow'] = DB::table('borrow')->where('username', $username)->join('document', 'borrow.document_code', '=', 'document.id')->get();
+        $data['borrow'] = DB::table('borrow')->where('username', $username)->join('document', 'borrow.document_code', '=', 'document.id')->get();
         return view('admin/reimburse/reimburse', $data);
     }
 
@@ -97,6 +104,11 @@ class Reimburse extends Controller {
         if ($reimburse == "")
             return redirect()->back()->withErrors("Phiếu trả không tồn tại")->withInput();
         $reimburse->delete();
+        //Tao Log
+        $log = new TblLog();
+        $log->message = "Đã xóa một phiếu trả ".$reimburse->id;
+        $log->created_by = Auth::user()->username;
+        $log->save();
         return redirect()->back()->with('success', 'Xóa thành công');
     }
 

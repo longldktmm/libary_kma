@@ -10,7 +10,7 @@
         <small> Tài khoản</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{url('/admin/')}}"><i class="fa fa-dashboard"></i> Tài khoản của tôi</a></li>
+        <li><a href="{{url('home')}}"><i class="fa fa-dashboard"></i> Tài khoản của tôi</a></li>
         <li class="active"> Xem hoặc chỉnh sửa</li>
     </ol>
 </section>

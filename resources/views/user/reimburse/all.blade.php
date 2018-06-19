@@ -10,7 +10,7 @@
         <small> Trả TÀI LIỆU CỦA TÔI</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li><a href="{{url('home')}}"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
         <li class="active"> Trả tài liệu</li>
     </ol>
 </section>

@@ -32,6 +32,11 @@
                         {{$errors->first('errorlogin')}}
                     </div>
                     @endif
+                    @if(session()->has('success'))
+                    <div class="alert alert-success">
+                        {{session('success')}}
+                    </div>
+                    @endif
                     <div class="form-group">
                         <label for="">Tài khoản</label>
                         <input type="text" class="form-control" id="username" placeholder="Tài khoản" name="username" value="{{old('username')}}">

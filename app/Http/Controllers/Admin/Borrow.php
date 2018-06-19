@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\TblLog;
 use App\TblDocument;
 use App\TblBorrow;
 use Validator;
@@ -61,6 +62,12 @@ class Borrow extends Controller {
 //Update tai lieu
             $document->borrow_by = $borrow->id;
             $document->save();
+            
+//Tao Log
+            $log = new TblLog();
+            $log->message = "Đã cho ".$username." mượn một quyển sách";
+            $log->created_by = Auth::user()->username;
+            $log->save();                
             return redirect()->back()->with('success', 'Thêm thành công')->withInput();
         }
     }
@@ -99,6 +106,11 @@ class Borrow extends Controller {
         if ($borrow == "")
             return redirect()->back()->withErrors("Phiếu mượn không tồn tại")->withInput();
         $borrow->delete();
+        //Tao Log
+            $log = new TblLog();
+            $log->message = "Đã xóa ".$id;
+            $log->created_by = Auth::user()->username;
+            $log->save();      
         return redirect()->back()->with('success', 'Xóa thành công');
     }
 
