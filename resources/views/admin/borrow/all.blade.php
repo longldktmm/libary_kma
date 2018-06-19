@@ -31,23 +31,6 @@
     </div>
     @endif
     <div class="box-body">
-        <form action="" enctype="multipart/form-data"  role="form" method="post">
-            {{csrf_field()}}
-            <div class="form-group uppercase">
-                <label>Mã người dùng</label>
-                <input id = "input_username" name = "input_username" value="{{ old('input_username') }}" type="text" class="form-control" placeholder="Nhập ...">
-            </div>
-            <!-- text input -->
-            <div class="form-group">
-                <label>Mã tài liệu</label>
-                <input id = "input_document_code" name = "input_document_code" value="" type="text" class="form-control" placeholder="Nhập ...">
-            </div>
-            <div class="box-footer">
-                <button type="submit" class="btn btn-primary" value="submit"> Trả</button>
-                <button type="reset" class="btn btn-primary"> Làm lại</button>
-                <a href="{{url('admin/document/all')}}"><button type="button" class="btn btn-primary"> Trở về</button></a>
-            </div>
-        </form>
         <!-- Profile Image -->
         <div class="box box-primary">
             <div class="box-body box-profile">
@@ -55,21 +38,7 @@
 
                 <h3 class="profile-username text-center">{{$user->username}}</h3>
 
-                <p class="text-muted text-center">{{$user->department}}</p>
-
-                <ul class="list-group list-group-unbordered">
-                    <li class="list-group-item">
-                        <b>{{$user->name}}</b> <a class="pull-right"></a>
-                    </li>
-                    <li class="list-group-item">
-                        <b>{{$user->classroom}}</b> <a class="pull-right"></a>
-                    </li>
-                    <li class="list-group-item">
-                        <b>{{$user->course}}</b> <a class="pull-right"></a>
-                    </li>
-                </ul>
-
-                <a href="#" class="btn btn-primary btn-block"><b>{{$user->address}}</b></a>
+                <p class="text-muted text-center"> - {{$user->department}} - {{$user->name}} - {{$user->role}} - {{$user->classroom}} - {{$user->course}} - {{$user->address}}</p>
             </div>
             <!-- /.box-body -->
         </div>
