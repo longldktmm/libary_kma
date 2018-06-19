@@ -31,6 +31,44 @@
     </div>
     @endif
     <div class="box-body">
+        <!-- Profile Image -->
+        <div class="box box-primary">
+            <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="{{$user->avatar}}" alt="User profile picture">
+
+                <h3 class="profile-username text-center">{{$user->username}}</h3>
+
+                <p class="text-muted text-center"> - {{$user->department}} - {{$user->name}} - {{$user->role}} - {{$user->classroom}} - {{$user->course}} - {{$user->address}}</p>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <div class="box-body">
+            <form action="" enctype="multipart/form-data"  role="form" method="post">
+                {{csrf_field()}}
+                <div class="form-group uppercase">
+                    <label>Mã sách</label>
+                    <input id = "input_document_code" name = "input_document_code" value="{{ old('input_document_code') }}" type="text" class="form-control" placeholder="Nhập ...">
+                </div>
+                <div class="form-group">
+                    <label>Trạng thái sách</label>
+                    <select id = "input_document_status" name = "input_document_status" class="form-control" value="{{ old('input_document_status') }}" >
+                        <option value="{{ old('input_document_status') }}">Chọn một</option>
+                        @foreach($status as $row)
+                        <option value="{{$row['status_name']}}">{{$row['status_name']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group uppercase">
+                    <label>Chú thích</label>
+                    <input id = "input_commit" name = "input_commit" value="{{ old('input_commit') }}" type="text" class="form-control" placeholder="Nhập ...">
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary" value="submit"> Trả</button>
+                    <button type="reset" class="btn btn-primary"> Làm lại</button>
+                    <a href="{{url('admin/reimburse')}}"><button type="button" class="btn btn-primary"> Trở về</button></a>
+                </div>
+            </form>
+        </div>
         <!-- /.box -->
         <div class="row">
             <div class="col-xs-12"> 
@@ -46,23 +84,21 @@
                                     <th> Stt</th>
                                     <th> Mã sách</th>
                                     <th> Tên sách</th>
-                                    <th> Ngày trả</th>
+                                    <th> Ngày mượn</th>
+                                    <th> Số ngày mượn</th>
                                     <th> Trạng thái lúc mượn</th>
-                                    <th> Chú thích</th>
-                                    <th> Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 0; ?>
-                                @foreach($reimburse as $row)
+                                @foreach($borrow as $row)
                                 <tr>
                                     <td>{{$i+=1}}</td>
                                     <td>{{$row->document_code}}</td>
                                     <td>{{$row->document_name}}</td>
                                     <td>{{$row->created_at}}</td>
+                                    <td>{{$row->expiry}}</td>
                                     <td>{{$row->document_status}}</td>
-                                    <td>{{$row->commit}}</td>
-                                    <td><a href="{{url('admin/reimburse/delete')}}/{{$row->id}}"><button type="submit" class="btn btn-primary"> Xóa</button></a></td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -71,10 +107,9 @@
                                     <th> Stt</th>
                                     <th> Mã sách</th>
                                     <th> Tên sách</th>
-                                    <th> Ngày trả</th>
+                                    <th> Ngày mượn</th>
+                                    <th> Số ngày mượn</th>
                                     <th> Trạng thái lúc mượn</th>
-                                    <th> Chú thích</th>
-                                    <th> Xóa</th>
                                 </tr>
                             </tfoot>
                         </table>

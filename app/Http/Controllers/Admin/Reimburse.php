@@ -6,24 +6,25 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
-use App\TblStatus;
+use App\TblReimburse;
 use App\TblDocument;
 use App\TblBorrow;
+use App\TblStatus;
 use Validator;
 use Webpatser\Uuid\Uuid;
-
+use DB;
 class Reimburse extends Controller {
 
     public function postAdd($username, Request $request) {
         $rules = [
-            'input_expiry' => 'alpha_num',
-            'input_document_code' => 'required| max: 255| exists:document,id',
+            'input_commit' => ' max: 500',
+            'input_document_code' => 'required| max: 255',
+            'input_document_status' => 'required',
         ];
         $messages = [
-            'input_expiry.alpha_num' => 'Số ngày mượn phải là số',
+            'input_expiry.max' => 'Chú thích quá dài',
             'input_document_code.required' => 'Mã sách không được để trống',
             'input_document_code.max' => 'Mã sách quá dài',
-            'input_document_code.exists' => 'Mã sách không tồn tại',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -35,33 +36,38 @@ class Reimburse extends Controller {
 //Kiem tra tai lieu ton tai
             if ($document == "")
                 return redirect()->back()->withErrors("Tài liệu không tồn tại")->withInput();
-            if ($document->borrow_by != "")
-                return redirect()->back()->withErrors("Tài liệu đã được cho mượn")->withInput();
-            if ($document->status == "Mất")
-                return redirect()->back()->withErrors("Tài liệu đã được báo mất")->withInput();
-            if ($document->status == "Hỏng")
-                return redirect()->back()->withErrors("Tài liệu đã được báo hỏng")->withInput();
-//Tao phieu muon
-            $borrow = new TblBorrow();
-            $borrow->id = Uuid::generate(4);
-            $borrow->document_code = $request->input_document_code;
-            $borrow->username = $username;
-            $borrow->expiry = $request->input_expiry;
-            $borrow->document_status = $document->status;
-            $borrow->created_by = Auth::user()->username;
-            $borrow->save();
+            if ($document->borrow_by == "")
+                return redirect()->back()->withErrors("Tài liệu chưa được ai mượn hoặc đã được trả")->withInput();
+            $borrow = TblBorrow::find($document->borrow_by);
+            if ($borrow == "")
+                return redirect()->back()->withErrors("Phiếu mượn không tồn tại")->withInput();
+            if ($borrow->username != $username)
+                return redirect()->back()->withErrors("Sách không phải của chủ thẻ")->withInput();
+//Xóa phiếu mượn
+            $borrow->delete();
+
+//Tao phieu trả
+            $reimburse = new TblReimburse();
+            $reimburse->id = Uuid::generate(4);
+            $reimburse->document_code = $request->input_document_code;
+            $reimburse->username = $username;
+            $reimburse->commit = $request->input_commit;
+            $reimburse->document_status = $request->input_document_status;
+            $reimburse->created_by = Auth::user()->username;
+            $reimburse->save();
 //Update tai lieu
-            $document->borrow_by = $borrow->id;
+            $document->borrow_by = "";
             $document->save();
-            return redirect()->back()->with('success', 'Thêm thành công')->withInput();
+            return redirect()->back()->with('success', 'Trả thành công')->withInput();
         }
     }
 
     public function getAdd($username) {
         $data['user'] = User::where('username', $username)->first();
-        $data['document'] = TblDocument::find(0);
-        $data['borrow'] = TblBorrow::where('username', $username)->get();
-        return view('admin/borrow/all', $data);
+        $data['status'] = TblStatus::all();
+//        $data['borrow'] = TblBorrow::where('username', $username)->get();
+         $data['borrow'] = DB::table('borrow')->where('username', $username)->join('document', 'borrow.document_code', '=', 'document.id')->get();
+        return view('admin/reimburse/reimburse', $data);
     }
 
     public function getHome() {
@@ -87,16 +93,16 @@ class Reimburse extends Controller {
     }
 
     public function delete($id) {
-        $borrow = TblBorrow::find($id);
-        if ($borrow == "")
-            return redirect()->back()->withErrors("Phiếu mượn không tồn tại")->withInput();
-        $borrow->delete();
+        $reimburse = TblReimburse::where('document_code', $id)->first();
+        if ($reimburse == "")
+            return redirect()->back()->withErrors("Phiếu trả không tồn tại")->withInput();
+        $reimburse->delete();
         return redirect()->back()->with('success', 'Xóa thành công');
     }
 
-    public function getBorrow() {
-        $data['document'] = \App\TblDocument::all()->sortByDesc('updated_at');
-        return view('admin/document/all', $data);
+    public function getAll() {
+        $data['reimburse'] = DB::table('reimburse')->join('document', 'reimburse.document_code', '=', 'document.id')->get();
+        return view('admin/reimburse/all', $data);
     }
 
 }

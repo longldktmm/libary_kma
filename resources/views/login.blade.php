@@ -23,39 +23,34 @@
                 <meta charset="UTF-8">
                 <title>Login</title>
             </head>
-            <body>
-                <div class="col-md-6 col-md-offset-3">
-                    <form action="{{url('login')}}" method="POST" role="form">
-                        <legend>Login</legend>
-                        @if($errors->has('errorlogin'))
-                        <div class="alert alert-danger">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            {{$errors->first('errorlogin')}}
-                        </div>
+            <div class="col-md-6 col-md-offset-3">
+                <form action="{{url('login')}}" method="POST" role="form">
+                    <legend>Login</legend>
+                    @if($errors->has('errorlogin'))
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{$errors->first('errorlogin')}}
+                    </div>
+                    @endif
+                    <div class="form-group">
+                        <label for="">Tài khoản</label>
+                        <input type="text" class="form-control" id="username" placeholder="Tài khoản" name="username" value="{{old('username')}}">
+                        @if($errors->has('username'))
+                        <p style="color:red">{{$errors->first('username')}}</p>
                         @endif
-                        <div class="form-group">
-                            <label for="">Tài khoản</label>
-                            <input type="text" class="form-control" id="username" placeholder="Tài khoản" name="username" value="{{old('username')}}">
-                            @if($errors->has('username'))
-                            <p style="color:red">{{$errors->first('username')}}</p>
-                            @endif
-                        </div>
-                        <div class="form-group">
-                            <label for="">Mật khẩu</label>
-                            <input type="password" class="form-control" id="password" placeholder="Mật khẩu" name="password">
-                            @if($errors->has('password'))
-                            <p style="color:red">{{$errors->first('password')}}</p>
-                            @endif
-                        </div>
-
-
-                        {!! csrf_field() !!}
-                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
-                    </form>
-                </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Mật khẩu</label>
+                        <input type="password" class="form-control" id="password" placeholder="Mật khẩu" name="password">
+                        @if($errors->has('password'))
+                        <p style="color:red">{{$errors->first('password')}}</p>
+                        @endif
+                    </div>
+                    {!! csrf_field() !!}
+                    <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                </form>
+            </div>
     </div>
-</div>
-</form>
 </div>
 
 </section>

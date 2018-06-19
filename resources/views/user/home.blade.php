@@ -30,24 +30,24 @@
                             <tr>
                                 <th> Stt</th>
                                 <th> Tên tài liệu</th>
-                                <th> Môn</th>
-                                <th> Loại</th>
                                 <th> Số lượng còn lại</th>
-                                <th> Đối tượng được mượn</th>
-                                <th> Chi tiết</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $i = 0; ?>
+                            @foreach($suggestDocument as $row)
+                            <tr>
+                                <td>{{$i+=1}}</td>
+                                <td>{{$row->document_name}}</td>
+                                <td>{{$row->left}}</td>                      
+                            </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th> Stt</th>
                                 <th> Tên tài liệu</th>
-                                <th> Môn</th>
-                                <th> Loại</th>
                                 <th> Số lượng còn lại</th>
-                                 <th> Đối tượng được mượn</th>
-                                <th> Chi tiết</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -63,13 +63,4 @@
 <!-- /.content -->
 @endsection
 @section('script')
-<!-- DataTables -->
-<script src="{{asset('bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
-<!-- page script -->
-<script>
-                    $(function () {
-                        $('#classroom_table').DataTable()
-                    })
-</script>
 @endsection

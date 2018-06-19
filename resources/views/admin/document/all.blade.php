@@ -42,6 +42,7 @@
                         <thead>
                             <tr>
                                 <th> Stt</th>
+                                <th> Mã sách</th>
                                 <th> Tên tài liệu</th>
                                 <th> Tác giả</th>
                                 <th> Nhà xuất bản</th>
@@ -60,6 +61,7 @@
                             @foreach($document as $row)
                             <tr>
                                 <td>{{$i+=1}}</td>
+                                <td>{{$row->id}}</td>
                                 <td>{{$row->document_name}}</td>
                                 <td>{{$row->author}}</td>
                                 <td>{{$row->publishing_company}}</td>
@@ -77,6 +79,7 @@
                         <tfoot>
                             <tr>
                                 <th> Stt</th>
+                                <th> Mã sách</th>
                                 <th> Tên tài liệu</th>
                                 <th> Tác giả</th>
                                 <th> Nhà xuất bản</th>

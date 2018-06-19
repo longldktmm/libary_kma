@@ -130,8 +130,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="{{url('admin/exam/add')}}"><i class="fa fa-circle-o"></i> Tài liệu đã trả</a></li>
-                                <li><a href="{{url('admin/question/all')}}"><i class="fa fa-circle-o"></i> Tài liệu đã mượn</a></li>
+                                <li><a href="{{url('borrow')}}"><i class="fa fa-circle-o"></i> Tài liệu đã mượn</a></li>
+                                <li><a href="{{url('reimburse')}}"><i class="fa fa-circle-o"></i> Tài liệu đã trả</a></li>
                             </ul>
                         </li>
                         <li><a href="{{url('myaccount')}}"><i class="fa fa-book"></i> <span>Tài khoản của tôi</span></a></li>

@@ -10,6 +10,7 @@ use App\TblDocument;
 use App\TblBorrow;
 use Validator;
 use Webpatser\Uuid\Uuid;
+use DB;
 
 class Borrow extends Controller {
 
@@ -40,6 +41,14 @@ class Borrow extends Controller {
                 return redirect()->back()->withErrors("Tài liệu đã được báo mất")->withInput();
             if ($document->status == "Hỏng")
                 return redirect()->back()->withErrors("Tài liệu đã được báo hỏng")->withInput();
+//Check quyen
+            $user = User::where('username', $username)->first();
+            if ($user == "")
+                return redirect()->back()->withErrors("Người dùng không tồn tại")->withInput();
+            if ($document->department == "Mật mã" && $user->department != "Mật mã")
+                return redirect()->back()->withErrors("Bạn không có quyền mượn quyển này")->withInput();
+            if ($document->type == "Giáo án" && $user->role != "Sinh viên")
+                return redirect()->back()->withErrors("Bạn không có quyền mượn quyển này")->withInput();
 //Tao phieu muon
             $borrow = new TblBorrow();
             $borrow->id = Uuid::generate(4);
@@ -58,9 +67,9 @@ class Borrow extends Controller {
 
     public function getAdd($username) {
         $data['user'] = User::where('username', $username)->first();
-        $data['document'] = TblDocument::find(0);
-        $data['borrow'] = TblBorrow::where('username', $username)->get();
-        return view('admin/borrow/all', $data);
+        $data['borrow'] = DB::table('borrow')->where('username', $username)->join('document', 'borrow.document_code', '=', 'document.id')->get();
+//        $data['borrow'] = TblBorrow::where('username', $username)->get();
+        return view('admin/borrow/borrow', $data);
     }
 
     public function getHome() {
@@ -86,16 +95,17 @@ class Borrow extends Controller {
     }
 
     public function delete($id) {
-        $borrow = TblBorrow::find($id);
+        $borrow = TblBorrow::where('document_code', $id)->first();
         if ($borrow == "")
             return redirect()->back()->withErrors("Phiếu mượn không tồn tại")->withInput();
         $borrow->delete();
         return redirect()->back()->with('success', 'Xóa thành công');
     }
 
-    public function getBorrow() {
-        $data['document'] = \App\TblDocument::all()->sortByDesc('updated_at');
-        return view('admin/document/all', $data);
+    public function getAll() {
+        $data['borrow'] = DB::table('borrow')->join('document', 'borrow.document_code', '=', 'document.id')->get();
+//        $data['borrow'] = \App\TblBorrow::all()->sortByDesc('created_at');
+        return view('admin/borrow/all', $data);
     }
 
 }

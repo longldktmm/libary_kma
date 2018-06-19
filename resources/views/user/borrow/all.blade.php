@@ -1,27 +1,41 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 @section('style')
+<link rel="stylesheet" href="{{asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 @endsection
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        TRANG CHỦ
-        <small>kmalibrary.vn</small>
+        Quản lý
+        <small> MƯỢN TÀI LIỆU CỦA TÔI</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> kmalibrary.vn</a></li>
-        <li class="active"> Trang chủ</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+        <li class="active"> Mượn tài liệu</li>
     </ol>
 </section>
 <!-- Main content -->
 <section class="content">
-    <h1>CHÀO MỪNG ĐẾN VỚI TRANG QUẢN TRỊ THƯ VIỆN KMA </h1>
-    <h2>Hoạt động gần đây </h2>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    @if(session()->has('success'))
+    <div class="alert alert-success">
+        {{session('success')}}
+    </div>
+    @endif
+    <!-- /.box -->
     <div class="row">
         <div class="col-xs-12"> 
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Log:</h3>
+                    <h3 class="box-title">Danh sách sách đã mượn</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -29,25 +43,34 @@
                         <thead>
                             <tr>
                                 <th> Stt</th>
-                                <th> Mô trả</th>
-                                <th> Từ</th>
+                                <th> Mã sách</th>
+                                <th> Tên sách</th>
+                                <th> Ngày mượn</th>
+                                <th> Số ngày mượn</th>
+                                <th> Trạng thái lúc mượn</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $i = 0; ?>
-                            @foreach($log as $row)
+                            @foreach($borrow as $row)
                             <tr>
                                 <td>{{$i+=1}}</td>
-                                <td>{{$row->message}}</td>
-                                <td>{{$row->created_by}}</td>                      
+                                <td>{{$row->document_code}}</td>
+                                <td>{{$row->document_name}}</td>
+                                <td>{{$row->created_at}}</td>
+                                <td>{{$row->expiry}}</td>
+                                <td>{{$row->document_status}}</td>
                             </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th> Stt</th>
-                                <th> Mô trả</th>
-                                <th> Từ</th>
+                                <th> Mã sách</th>
+                                <th> Tên sách</th>
+                                <th> Ngày mượn</th>
+                                <th> Số ngày mượn</th>
+                                <th> Trạng thái lúc mượn</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -71,8 +94,5 @@
     $(function () {
     $('#classroom_table').DataTable()
     })
-</script>
-<script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
 </script>
 @endsection
