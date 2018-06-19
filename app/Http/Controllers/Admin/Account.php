@@ -9,8 +9,6 @@ use App\User;
 use App\TblRole;
 use App\TblDepartment;
 use Validator;
-use DB;
-use Webpatser\Uuid\Uuid;
 
 class Account extends Controller {
 

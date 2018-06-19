@@ -5,15 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
 use App\TblStatus;
 use App\TblType;
 use App\TblDocument;
 use App\TblDepartment;
 use Validator;
-use DB;
-use Webpatser\Uuid\Uuid;
-
 class Document extends Controller {
 
     public function postAdd(Request $request) {
@@ -94,6 +90,7 @@ class Document extends Controller {
             'input_document_name' => 'required| max: 255',
             'input_publishing_company' => 'required| max: 255',
             'input_type' => 'required| max: 255',
+            'input_borrow_by' => 'max: 255',
             'input_department' => 'required| max: 255',
             'input_status' => 'required| max: 255',
             'input_review' => 'max: 255',
@@ -122,6 +119,7 @@ class Document extends Controller {
             $document->type = $request->input_type;
             $document->status = $request->input_status;
             $document->review = $request->input_review;
+            $document->borrow_by = $request->input_borrow_by;
             $document->updated_by = Auth::user()->username;
             $document->save();
             return redirect(url('admin/document/all'))->with('success', 'Sửa thành công');

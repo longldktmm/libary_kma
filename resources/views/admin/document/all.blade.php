@@ -48,7 +48,7 @@
                                 <th> Loại</th>
                                 <th> Khoa</th>
                                 <th> Trạng thái</th>
-                                <th> Người mượn</th>
+                                <th> Phiếu mượn</th>
                                 <th> Giới thiệu</th>
                                 <th> Lần cuối chỉnh sửa</th>
                                 <th> Chỉnh sửa</th>
@@ -83,7 +83,7 @@
                                 <th> Loại</th>
                                 <th> Khoa</th>
                                 <th> Trạng thái</th>
-                                <th> Người mượn</th>
+                                <th> Phiếu mượn</th>
                                 <th> Giới thiệu</th>
                                 <th> Lần cuối chỉnh sửa</th>
                                 <th> Chỉnh sửa</th>

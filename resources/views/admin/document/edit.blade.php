@@ -89,6 +89,10 @@
                     <label>Giới thiệu</label>
                     <textarea  id = "input_review" name = "input_review" class="form-control" rows="3">{{$document ->review}}</textarea>
                 </div>
+                <div class="form-group">
+                    <label>Phiếu mượn</label>
+                    <textarea  id = "input_borrow_by" name = "input_borrow_by" class="form-control" rows="3">{{$document ->borrow_by}}</textarea>
+                </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary" value="submit"> Sửa</button>
                     <button type="reset" class="btn btn-primary"> Làm lại</button>

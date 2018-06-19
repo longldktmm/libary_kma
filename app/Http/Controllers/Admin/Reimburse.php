@@ -2,45 +2,101 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
+use App\TblStatus;
+use App\TblDocument;
+use App\TblBorrow;
+use Validator;
+use Webpatser\Uuid\Uuid;
 
-class FileController extends Controller {
-    public function index() {
-        return view('admin/exam/demo_upload');
+class Reimburse extends Controller {
+
+    public function postAdd($username, Request $request) {
+        $rules = [
+            'input_expiry' => 'alpha_num',
+            'input_document_code' => 'required| max: 255| exists:document,id',
+        ];
+        $messages = [
+            'input_expiry.alpha_num' => 'Số ngày mượn phải là số',
+            'input_document_code.required' => 'Mã sách không được để trống',
+            'input_document_code.max' => 'Mã sách quá dài',
+            'input_document_code.exists' => 'Mã sách không tồn tại',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+//Tim tai lieu
+            $document = TblDocument::find($request->input_document_code);
+//Kiem tra tai lieu ton tai
+            if ($document == "")
+                return redirect()->back()->withErrors("Tài liệu không tồn tại")->withInput();
+            if ($document->borrow_by != "")
+                return redirect()->back()->withErrors("Tài liệu đã được cho mượn")->withInput();
+            if ($document->status == "Mất")
+                return redirect()->back()->withErrors("Tài liệu đã được báo mất")->withInput();
+            if ($document->status == "Hỏng")
+                return redirect()->back()->withErrors("Tài liệu đã được báo hỏng")->withInput();
+//Tao phieu muon
+            $borrow = new TblBorrow();
+            $borrow->id = Uuid::generate(4);
+            $borrow->document_code = $request->input_document_code;
+            $borrow->username = $username;
+            $borrow->expiry = $request->input_expiry;
+            $borrow->document_status = $document->status;
+            $borrow->created_by = Auth::user()->username;
+            $borrow->save();
+//Update tai lieu
+            $document->borrow_by = $borrow->id;
+            $document->save();
+            return redirect()->back()->with('success', 'Thêm thành công')->withInput();
+        }
     }
 
-    public function doUpload(Request $request) {
-        echo 'Up load';
-        //Kiểm tra file
-        if ($request->hasFile('file_exam')) {
-            $file = $request->file_exam;
-            //Lấy Tên files
-            echo 'Tên Files: ' . $file->getClientOriginalName();
-            echo '<br/>';
+    public function getAdd($username) {
+        $data['user'] = User::where('username', $username)->first();
+        $data['document'] = TblDocument::find(0);
+        $data['borrow'] = TblBorrow::where('username', $username)->get();
+        return view('admin/borrow/all', $data);
+    }
 
-            //Lấy Đuôi File
-            echo 'Đuôi file: ' . $file->getClientOriginalExtension();
-            echo '<br/>';
+    public function getHome() {
+        return view('admin/borrow/home');
+    }
 
-            //Lấy đường dẫn tạm thời của file
-            echo 'Đường dẫn tạm: ' . $file->getRealPath();
-            echo '<br/>';
+    public function postHome(Request $request) {
+        $rules = [
+            'input_username' => 'required| max: 255 | exists:users,username',
+        ];
+        $messages = [
+            'input_username.max' => 'Mã người dùng quá dài',
+            'input_username.required' => 'Mã người dùng không được để trống',
+            'input_username.exists' => 'Mã người dùng không tồn tại',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
 
-            //Lấy kích cỡ của file đơn vị tính theo bytes
-            echo 'Kích cỡ file: ' . $file->getSize();
-            echo '<br/>';
-
-            //Lấy kiểu file
-            echo 'Kiểu files: ' . $file->getMimeType();
-            $data = $file->move('upload', $file->getClientOriginalName());
-            echo '<br>';
-            echo $data;
-            //hàm sẽ trả về đường dẫn mới của file trên server
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         } else {
-            echo '<br>';
-            echo 'Không có file';
+            return redirect()->route('userProfileReimburse', [$request->input_username]);
         }
+    }
+
+    public function delete($id) {
+        $borrow = TblBorrow::find($id);
+        if ($borrow == "")
+            return redirect()->back()->withErrors("Phiếu mượn không tồn tại")->withInput();
+        $borrow->delete();
+        return redirect()->back()->with('success', 'Xóa thành công');
+    }
+
+    public function getBorrow() {
+        $data['document'] = \App\TblDocument::all()->sortByDesc('updated_at');
+        return view('admin/document/all', $data);
     }
 
 }

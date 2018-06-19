@@ -14,9 +14,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', function () {
         return view('user/home');
     });
-    Route::get('/myaccount', "user\MyAccount@get");
-    Route::post('/myaccount', "user\MyAccount@post");
-    Route::post('/myaccount/changepassword', "user\MyAccount@changePwd");
+    Route::get('/myaccount', "User\MyAccount@get");
+    Route::post('/myaccount', "User\MyAccount@post");
+    Route::post('/myaccount/changepassword', "User\MyAccount@changePwd");
 
     Route::group(['middleware' => 'ChechkAdmin'], function() {
         Route::get('/admin', function () {
@@ -41,11 +41,14 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/admin/borrow/', "Admin\Borrow@getHome");
         Route::post('/admin/borrow/', "Admin\Borrow@postHome");
         Route::get('/admin/borrow/add/{username}', "Admin\Borrow@getAdd")->name('userProfile');
-        Route::post('/admin/borrow/add', "Admin\Borrow@postAdd");
+        Route::post('/admin/borrow/add/{username}', "Admin\Borrow@postAdd");
         Route::get('/admin/borrow/delete/{id}', "Admin\Borrow@delete");
-        Route::get('/admin/borrow/edit/{id}', "Admin\Borrow@getEdit");
-        Route::post('/admin/borrow/edit/{id}', "Admin\Borrow@postEdit");
 
+        Route::get('/admin/reimburse/', "Admin\Reimburse@getHome");
+        Route::post('/admin/reimburse/', "Admin\Reimburse@postHome");
+        Route::get('/admin/reimburse/add/{username}', "Admin\Reimburse@getAdd")->name('userProfileReimburse');
+        Route::post('/admin/reimburse/add/{username}', "Admin\Reimburse@postAdd");
+        Route::get('/admin/reimburse/delete/{id}', "Admin\Reimburse@delete");
 
         Route::get('/admin/account/myaccount', "Admin\MyAccount@get");
         Route::post('/admin/account/myaccount', "Admin\MyAccount@post");

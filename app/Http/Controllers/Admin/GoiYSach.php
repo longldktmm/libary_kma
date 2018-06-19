@@ -10,7 +10,6 @@ use \App\TblLevel;
 use \App\TblClass;
 use \App\TblQuestion;
 use Validator;
-use DB;
 class Question extends Controller {
     private $sql = "";
     public function postAdd(Request $request) {
