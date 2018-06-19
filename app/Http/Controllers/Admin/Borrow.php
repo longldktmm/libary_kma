@@ -72,7 +72,7 @@ class Borrow extends Controller {
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         } else {
-            return redirect();
+            return redirect()->route('userProfile', [$request->input_username]);
         }
     }
 

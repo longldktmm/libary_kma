@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'], function() {
 
         Route::get('/admin/borrow/', "Admin\Borrow@getHome");
         Route::post('/admin/borrow/', "Admin\Borrow@postHome");
-        Route::get('/admin/borrow/add/{username}', "Admin\Borrow@getAdd");
+        Route::get('/admin/borrow/add/{username}', "Admin\Borrow@getAdd")->name('userProfile');
         Route::post('/admin/borrow/add', "Admin\Borrow@postAdd");
         Route::get('/admin/borrow/delete/{id}', "Admin\Borrow@delete");
         Route::get('/admin/borrow/edit/{id}', "Admin\Borrow@getEdit");

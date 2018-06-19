@@ -34,10 +34,6 @@
         Đổi mật khẩu
         <form action="{{url('admin/account/myaccount/changepassword')}}" enctype="multipart/form-data"  role="form" method="post" >
             {{csrf_field()}}
-            <div class="form-group">
-                <label>Mật khẩu cũ</label>
-                <input id = "input_password" name = "input_password" type="text" class="form-control" value="">
-            </div>
             <!-- text input -->
             <div class="form-group">
                 <label>Mật khẩu mới</label>

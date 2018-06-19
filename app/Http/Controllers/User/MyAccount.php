@@ -52,12 +52,9 @@ class MyAccount extends Controller {
 
     public function changePwd(Request $request) {
         $rules = [
-            'input_password' => 'required | min: 8',
             'input_new_password' => 'required | min: 8',
         ];
         $messages = [
-            'input_password.required' => 'Mật khẩu cũ không được để trống',
-            'input_password.min' => 'Mật khẩu phải ít nhất 8 ký tự',
             'input_new_password.required' => 'Mật khẩu mới không được để trống',
             'input_new_password.min' => 'Mật khẩu mới phải ít nhất 8 ký tự',
         ];
