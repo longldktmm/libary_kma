@@ -168,7 +168,7 @@
                                 <li><a href="{{url('admin')}}"><i class="fa fa-circle-o"></i> Thêm gợi ý</a></li>
                             </ul>
                         </li>
-                        <li><a href="{{url('/admin/account/myaccount')}}"><i class="fa fa-book"></i> <span>Tài khoản cá nhân</span></a></li>
+                        <li><a href="{{url('/admin/myaccount')}}"><i class="fa fa-book"></i> <span>Tài khoản cá nhân</span></a></li>
                         <li class="header">CHĂM SÓC KHÁCH HÀNG</li>
                         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Báo lỗi</span></a></li>
                         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Nâng cấp</span></a></li>

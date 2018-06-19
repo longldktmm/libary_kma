@@ -32,7 +32,7 @@
     @endif
     <div class="box-body">
         Đổi mật khẩu
-        <form action="{{url('admin/account/myaccount/changepassword')}}" enctype="multipart/form-data"  role="form" method="post" >
+        <form action="{{url('myaccount/changepassword')}}" enctype="multipart/form-data"  role="form" method="post" >
             {{csrf_field()}}
             <!-- text input -->
             <div class="form-group">
@@ -42,7 +42,7 @@
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary" value="submit"> Thay đổi mật khẩu</button>
                 <button type="reset" class="btn btn-primary"> Làm lại</button>
-                <a href="{{url('admin/')}}"><button type="button" class="btn btn-primary"> Trở về</button></a>
+                <a href="{{url('home')}}"><button type="button" class="btn btn-primary"> Trở về</button></a>
             </div>
         </form>
         Thông tin cá nhân
@@ -88,7 +88,7 @@
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary" value="submit"> Sửa</button>
                     <button type="reset" class="btn btn-primary"> Làm lại</button>
-                    <a href="{{url('admin/')}}"><button type="button" class="btn btn-primary"> Trở về</button></a>
+                    <a href="{{url('home')}}"><button type="button" class="btn btn-primary"> Trở về</button></a>
                 </div>
         </form>
         <

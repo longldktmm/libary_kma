@@ -47,7 +47,7 @@ class MyAccount extends Controller {
             $log->message = "Đã đổi thông tin ".$account->username;
             $log->created_by = Auth::user()->username;
             $log->save();
-            return redirect(url('admin/account/myaccount'))->with('success', 'Sửa thành công');
+            return redirect(url('admin/myaccount'))->with('success', 'Sửa thành công');
         }
     }
 

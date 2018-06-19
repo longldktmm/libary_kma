@@ -52,9 +52,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/admin/reimburse/delete/{id}', "Admin\Reimburse@delete");
         Route::get('/admin/reimburse/all', "Admin\Reimburse@getAll");
 
-        Route::get('/admin/account/myaccount', "Admin\MyAccount@get");
-        Route::post('/admin/account/myaccount', "Admin\MyAccount@post");
-        Route::post('/admin/account/myaccount/changepassword', "Admin\MyAccount@changePwd");
+        Route::get('/admin/myaccount', "Admin\MyAccount@get");
+        Route::post('/admin/myaccount', "Admin\MyAccount@post");
+        Route::post('/admin/myaccount/changepassword', "Admin\MyAccount@changePwd");
     });
 });
 

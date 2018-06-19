@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 use App\TblLog;
+
 class MyAccount extends Controller {
 
     public function get() {
@@ -42,7 +43,7 @@ class MyAccount extends Controller {
             $account->avatar = $request->input_avatar;
             $account->updated_by = Auth::user()->username;
             $account->save();
-                        //Tao Log
+            //Tao Log
             $log = new TblLog();
             $log->message = "Đã tự sửa thông tin ";
             $log->created_by = Auth::user()->username;
@@ -71,12 +72,13 @@ class MyAccount extends Controller {
 //                return redirect()->back()->withErrors("Tài khoản không tồn tại")->withInput();
 //            }
             $account->password = bcrypt($request->input_new_password);
-            $account->save();
             //Tao Log
             $log = new TblLog();
             $log->message = "Đã tự đổi mật khẩu ";
             $log->created_by = Auth::user()->username;
             $log->save();
+            $account->save();
+
             return redirect(url('logout'))->with('success', 'Thay đổi mật khẩu thành công');
         }
     }

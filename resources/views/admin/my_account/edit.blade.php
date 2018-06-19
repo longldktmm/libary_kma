@@ -32,7 +32,7 @@
     @endif
     <div class="box-body">
         Đổi mật khẩu
-        <form action="{{url('admin/account/myaccount/changepassword')}}" enctype="multipart/form-data"  role="form" method="post" >
+        <form action="{{url('admin/myaccount/changepassword')}}" enctype="multipart/form-data"  role="form" method="post" >
             {{csrf_field()}}
             <!-- text input -->
             <div class="form-group">
