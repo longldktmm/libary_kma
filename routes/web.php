@@ -10,19 +10,15 @@
   | contains the "web" middleware group. Now create something great!
   |
  */
-
-
-
-//Route::get('/', function () {
-//    return redirect('/login');
-//});
-
-
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', function () {
         return view('user/home');
     });
-    Route::group(['middleware' => 'admin'], function() {
+    Route::get('/myaccount', "user\MyAccount@get");
+    Route::post('/myaccount', "user\MyAccount@post");
+    Route::post('/myaccount/changepassword', "user\MyAccount@changePwd");
+
+    Route::group(['middleware' => 'ChechkAdmin'], function() {
         Route::get('/admin', function () {
             return view('admin/home_admin');
         });
@@ -55,9 +51,6 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/admin/account/myaccount', "Admin\MyAccount@post");
         Route::post('/admin/account/myaccount/changepassword', "Admin\MyAccount@changePwd");
     });
-    Route::get('/myaccount', "user\MyAccount@get");
-    Route::post('/myaccount', "user\MyAccount@post");
-    Route::post('/myaccount/changepassword', "user\MyAccount@changePwd");
 });
 
 
