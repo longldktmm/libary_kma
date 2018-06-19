@@ -13,23 +13,19 @@
 
 
 
-Route::get('/', function () {
-    return redirect('/login');
-});
+//Route::get('/', function () {
+//    return redirect('/login');
+//});
 
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::any('/', function () {
+    Route::get('/', function () {
         return view('user/home');
     });
     Route::group(['middleware' => 'admin'], function() {
         Route::get('/admin', function () {
             return view('admin/home_admin');
         });
-        Route::get('/admin', function () {
-            return view('admin/home_admin');
-        });
-
         Route::get('/admin/account/', "Admin\Account@getAll");
         Route::get('/admin/account/all', "Admin\Account@getAll");
         Route::get('/admin/account/add', "Admin\Account@getAdd");
