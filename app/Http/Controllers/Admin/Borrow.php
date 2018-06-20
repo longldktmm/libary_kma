@@ -17,11 +17,11 @@ class Borrow extends Controller {
 
     public function postAdd($username, Request $request) {
         $rules = [
-            'input_expiry' => 'alpha_num',
+            'input_expiry' => 'numeric',
             'input_document_code' => 'required| max: 255| exists:document,id',
         ];
         $messages = [
-            'input_expiry.alpha_num' => 'Số ngày mượn phải là số',
+            'input_expiry.numeric' => 'Số ngày mượn phải là số',
             'input_document_code.required' => 'Mã sách không được để trống',
             'input_document_code.max' => 'Mã sách quá dài',
             'input_document_code.exists' => 'Mã sách không tồn tại',
