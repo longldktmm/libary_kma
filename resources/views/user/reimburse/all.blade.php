@@ -7,7 +7,7 @@
 <section class="content-header">
     <h1>
         Quản lý
-        <small> Trả TÀI LIỆU CỦA TÔI</small>
+        <small> TRẢ TÀI LIỆU CỦA TÔI</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{url('home')}}"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
@@ -35,7 +35,7 @@
         <div class="col-xs-12"> 
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Danh sách sách đã mượn</h3>
+                    <h3 class="box-title">Danh sách sách đã trả</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -55,7 +55,7 @@
                             @foreach($reimburse as $row)
                             <tr>
                                 <td>{{$i+=1}}</td>
-                                <td>{{$row->document_code}}}</td>
+                                <td>{{$row->document_code}}</td>
                                 <td>{{$row->document_name}}</td>
                                 <td>{{$row->created_at}}</td>
                                 <td>{{$row->document_status}}</td>
