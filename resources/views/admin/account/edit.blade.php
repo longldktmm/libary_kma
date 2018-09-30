@@ -45,8 +45,8 @@
                 </div>
                 <!-- text input -->
                 <div class="form-group">
-                    <label>Họ tên</label>
-                    <input id = "input_user_name" name = "input_classroom" type="text" class="form-control" value="{{$account->classroom}}">
+                    <label>Lớp</label>
+                    <input id = "input_classroom" name = "input_classroom" type="text" class="form-control" value="{{$account->classroom}}">
                 </div>
                 <!-- select -->
                 <div class="form-group">
@@ -81,7 +81,7 @@
                 <!-- textarea -->
                 <div class="form-group">
                     <label>Địa chỉ</label>
-                    <textarea  id = "input_address" name = "input_address" class="form-control" rows="3" >{{$account->address}}</textarea>
+                    <textarea  id = "input_address" name = "input_address" class="form-control" rows="3" type="text" >{{$account->address}}</textarea>
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary" value="submit"> Sửa</button>

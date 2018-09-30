@@ -83,7 +83,7 @@
                 <!-- textarea -->
                 <div class="form-group">
                     <label>Địa chỉ</label>
-                    <textarea  id = "input_address" name = "input_address" class="form-control" rows="3" value="{{$account->address}}">{{$account->address}}</textarea>
+                    <textarea  id = "input_address" name = "input_address" class="form-control" rows="3" value="{{$account->address}}" type="text">{{$account->address}}</textarea>
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary" value="submit"> Sửa</button>
