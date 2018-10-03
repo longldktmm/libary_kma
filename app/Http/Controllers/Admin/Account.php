@@ -21,8 +21,8 @@ class Account extends Controller {
             'input_classroom' => 'required| max: 255',
             'input_course' => 'required| max: 255',
             'input_address' => 'required| max: 255',
-            'input_avatar' => 'required | url| max: 255',
-            'input_department' => 'required',
+            'input_avatar' => 'required | url| max: 1000',
+            'input_department' => 'required| max: 255',
         ];
         $messages = [
             'input_account.required' => 'Đường dẫn ảnh đại diện không được để trống',
@@ -30,15 +30,22 @@ class Account extends Controller {
             'input_avatar.url' => 'Đường dẫn ảnh phải là một liên kết',
             'input_address.required' => 'Địa chỉ không được để trống',
             'input_classroom.required' => 'Địa chỉ không được để trống',
-            'input_account.required' => 'Lớp học không được để trống',
             'input_course.required' => 'Khóa học không được để trống',
-            'input_name_user.required' => 'Tên người dùng không được để trống',
+            'input_user_name.required' => 'Tên người dùng không được để trống',
             'input_role.required' => 'Quyền không được để trống',
             'input_user_name.required' => 'Tên người dùng không được để trống',
             'input_department.required' => 'Tên khoa không được để trống',
             'input_username.required' => 'Mã người dùng không được để trống',
             'input_username.unique' => 'Mã người dùng bị trùng (so sánh cả viết thường không dấu)',
             'input_username.alpha' => 'Mã người dùng chỉ được ký tự và số',
+            'input_avatar.max' => 'Đường dẫn ảnh đại diện > 255 ký tự',
+            'input_address.max' => 'Địa chỉ > 255 ký tự',
+            'input_classroom.max' => 'Địa chỉ > 255 ký tự',
+            'input_course.max' => 'Khóa học > 255 ký tự',
+            'input_role.max' => 'Quyền > 255 ký tự',
+            'input_user_name.max' => 'Tên người dùng > 255 ký tự',
+            'input_department.max' => 'Tên khoa > 255 ký tự',
+            'input_username.max' => 'Mã người > 255 ký tự',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -62,7 +69,7 @@ class Account extends Controller {
 
             //Tao Log
             $log = new TblLog();
-            $log->message = "Đã thêm một tài khoản ".$request->input_user_name;
+            $log->message = "Đã thêm một tài khoản " . $request->input_user_name;
             $log->created_by = Auth::user()->username;
             $log->save();
             return redirect()->back()->with('success', 'Thêm thành công')->withInput();
@@ -87,12 +94,7 @@ class Account extends Controller {
         $account->delete();
         //Tao Log
         $log = new TblLog();
-        $log->message = "Đã xóa một tài khoản ".$account->username;
-        $log->created_by = Auth::user()->username;
-        $log->save();
-        //Tao Log
-        $log = new TblLog();
-        $log->message = "Đã xóa một tài khoản ".$account;
+        $log->message = "Đã xóa một tài khoản " . $account->username;
         $log->created_by = Auth::user()->username;
         $log->save();
         return redirect()->back()->with('success', 'Xóa thành công');
@@ -109,13 +111,13 @@ class Account extends Controller {
 
     public function postEdit($id, Request $request) {
         $rules = [
-            'input_role' => 'required',
-            'input_user_name' => 'required',
+            'input_role' => 'required | max: 255',
+            'input_user_name' => 'required | max: 255',
+            'input_classroom' => 'required| max: 255',
+            'input_course' => 'required| max: 255',
+            'input_address' => 'required| max: 255',
+            'input_avatar' => 'required | url| max: 255',
             'input_department' => 'required',
-            'input_classroom' => 'required',
-            'input_course' => 'required',
-            'input_address' => 'required',
-            'input_avatar' => 'required',
         ];
         $messages = [
             'input_account.required' => 'Đường dẫn ảnh đại diện không được để trống',
@@ -127,6 +129,14 @@ class Account extends Controller {
             'input_name_user.required' => 'Tên người dùng không được để trống',
             'input_role.required' => 'Quyền không được để trống',
             'input_department.required' => 'Khoa không được để trống',
+            'input_avatar.max' => 'Đường dẫn ảnh đại diện > 255 ký tự',
+            'input_address.max' => 'Địa chỉ > 255 ký tự',
+            'input_classroom.max' => 'Địa chỉ > 255 ký tự',
+            'input_course.max' => 'Khóa học > 255 ký tự',
+            'input_role.max' => 'Quyền > 255 ký tự',
+            'input_user_name.max' => 'Tên người dùng > 255 ký tự',
+            'input_department.max' => 'Tên khoa > 255 ký tự',
+            'input_username.max' => 'Mã người > 255 ký tự',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -147,7 +157,7 @@ class Account extends Controller {
             $account->save();
             //Tao Log
             $log = new TblLog();
-            $log->message = "Đã sửa một tài khoản ".$account->username;
+            $log->message = "Đã sửa một tài khoản " . $account->username;
             $log->created_by = Auth::user()->username;
             $log->save();
             return redirect(url('admin/account/all'))->with('success', 'Sửa thành công');

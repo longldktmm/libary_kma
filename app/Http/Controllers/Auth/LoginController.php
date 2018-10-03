@@ -43,10 +43,15 @@ class LoginController extends Controller {
             if (Auth::attempt(['username' => $username, 'password' => $password])) {
                 //Tao Log
                 $log = new TblLog();
-                $log->message = $username." đã đăng nhập";
+                $log->message = $username . " đã đăng nhập";
                 $log->created_by = "System";
                 $log->save();
-                return redirect('');
+                if (Auth::user()->role == "Admin") {
+//                    return $next($request); 
+                    return redirect('/admin');
+                } else {
+                    return redirect('');
+                }
             } else {
                 $errors = new MessageBag(['errorlogin' => 'Tên đăng nhập hoặc mật khẩu không đúng']);
                 return redirect()->back()->withInput()->withErrors($errors);
