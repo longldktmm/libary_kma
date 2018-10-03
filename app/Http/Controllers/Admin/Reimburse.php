@@ -44,7 +44,7 @@ class Reimburse extends Controller {
             if ($borrow == "")
                 return redirect()->back()->withErrors("Phiếu mượn không tồn tại")->withInput();
             if ($borrow->username != $username)
-                return redirect()->back()->withErrors("Sách không phải của chủ thẻ")->withInput();
+                return redirect()->back()->withErrors("Không được trả sách hộ")->withInput();
 //Xóa phiếu mượn
             $borrow->delete();
 

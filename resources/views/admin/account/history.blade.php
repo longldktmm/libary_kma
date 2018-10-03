@@ -5,18 +5,18 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        TRANG CHỦ
-        <small>kmalibrary.vn</small>
+        QUẢN LÝ
+        <small> Tài khoản</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> kmalibrary.vn</a></li>
-        <li class="active"> Trang chủ</li>
+        <li><a href="{{url('admin')}}"><i class="fa fa-dashboard"></i> Tài khoản</a></li>
+        <li class="active"> Lịch sử</li>
     </ol>
 </section>
 <!-- Main content -->
 <section class="content">
     <h1>CHÀO MỪNG ĐẾN VỚI TRANG QUẢN TRỊ THƯ VIỆN KMA </h1>
-    <h2>Hoạt động gần đây </h2>
+    <h2>Lịch sử thay đổi tài khoản </h2>
     <div class="row">
         <div class="col-xs-12"> 
             <div class="box">
@@ -25,13 +25,13 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="classroom_table" class="table table-bordered table-striped">
+                    <table id="history_table" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th> Stt</th>
-                                <th> Mô trả</th>
                                 <th> Từ</th>
                                 <th> Ngày</th>
+                                <th> Mô trả</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,18 +39,18 @@
                             @foreach($log as $row)
                             <tr>
                                 <td>{{$i+=1}}</td>
+                                <td>{{$row->created_by}}</td>   
+                                <td>{{$row->created_at}}</td>
                                 <td>{{$row->message}}</td>
-                                <td>{{$row->created_by}}</td>      
-                                <td>{{$row->created_at}}</td> 
                             </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th> Stt</th>
-                                <th> Mô trả</th>
                                 <th> Từ</th>
                                 <th> Ngày</th>
+                                <th> Mô trả</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -72,7 +72,7 @@
 <!-- page script -->
 <script>
     $(function () {
-    $('#classroom_table').DataTable()
+    $('#history_table').DataTable()
     })
 </script>
 <script type="text/javascript" async

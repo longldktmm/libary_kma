@@ -7,7 +7,7 @@
 <section class="content-header">
     <h1>
         QUẢN LÝ
-        <small> Trả TÀI LIỆU</small>
+        <small> TRẢ TÀI LIỆU</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{url('admin')}}"><i class="fa fa-dashboard"></i> Quản lý mượn trả</a></li>
@@ -36,7 +36,7 @@
             <div class="col-xs-12"> 
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Danh sách sách đã mượn</h3>
+                        <h3 class="box-title">Danh sách sách đã trả</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">

@@ -54,7 +54,7 @@ class Document extends Controller {
             $document->save();
             //Tao Log
             $log = new TblLog();
-            $log->message = "Đã sửa một tài liệu".$document->id;
+            $log->message = "Đã sửa một tài liệu ".$document->id;
             $log->created_by = Auth::user()->username;
             $log->save();
             return redirect()->back()->with('success', 'Thêm thành công')->withInput();
@@ -136,7 +136,7 @@ class Document extends Controller {
             $document->save();
             //Tao Log
             $log = new TblLog();
-            $log->message = "Đã sửa một tài liệu".$document->id;
+            $log->message = "Đã sửa một tài liệu ".$document->id;
             $log->created_by = Auth::user()->username;
             $log->save();
             return redirect(url('admin/document/all'))->with('success', 'Sửa thành công');

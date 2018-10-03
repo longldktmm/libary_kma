@@ -10,7 +10,7 @@ use App\TblRole;
 use App\TblLog;
 use App\TblDepartment;
 use Validator;
-
+use DB;
 class Account extends Controller {
 
     public function postAdd(Request $request) {
@@ -81,7 +81,15 @@ class Account extends Controller {
         $data['department'] = TblDepartment::all();
         return view('admin/account/add', $data);
     }
-
+    public function getHistory() {
+        $data['log'] = DB::table('log')->where('message', 'LIKE',"Đã thêm một tài khoản%")
+                ->where('message', 'LIKE',"Đã sửa một tài khoản%")->where('message', 'LIKE',"Đã thêm một tài khoản%")
+                ->orWhere('message', 'LIKE',"Đã xóa một tài khoản%")
+                ->orWhere('message', 'LIKE',"Đã tự sửa%")
+                ->orderBy('created_at', 'desc')
+                ->get();
+        return view('admin/account/history', $data);
+    }
     public function getAll() {
         $data['account'] = User::all()->sortByDesc('updated_at');
         return view('admin/account/all', $data);

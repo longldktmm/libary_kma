@@ -61,11 +61,11 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href=""><i class="fa fa-circle-o"></i> Tài liệu đã trả</a></li>
-                                <li><a href=""><i class="fa fa-circle-o"></i> Tài liệu đã mượn</a></li>
+                                <li><a href="{{url('borrow')}}"><i class="fa fa-circle-o"></i> Tài liệu đã trả</a></li>
+                                <li><a href="{{url('reimburse')}}"><i class="fa fa-circle-o"></i> Tài liệu đã mượn</a></li>
                             </ul>
                         </li>
-                        <li><a href=""><i class="fa fa-book"></i> <span>Tài khoản</span></a></li>
+                        <li><a href="#"><i class="fa fa-book"></i> <span>Tài khoản</span></a></li>
                         <li class="header">CHĂM SÓC KHÁCH HÀNG</li>
                         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Báo lỗi</span></a></li>
                     </ul>
@@ -83,7 +83,7 @@
                 <div class="pull-right hidden-xs">
                     <b>Version</b> 1.0.0
                 </div>
-                <strong>Copyright &copy; 2018-2018 <a href="https://kma.net">Group 4 Studio</a>.</strong> All rights
+                <strong>Copyright &copy; 2018-2018  <a href="http://kmalibary.tk">Thực tập cơ sở Demo</a>.</strong> All rights
                 reserved.
             </footer>
 

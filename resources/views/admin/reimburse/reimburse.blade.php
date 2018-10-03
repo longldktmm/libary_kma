@@ -7,7 +7,7 @@
 <section class="content-header">
     <h1>
         QUẢN LÝ
-        <small> Trả TÀI LIỆU</small>
+        <small> TRẢ TÀI LIỆU</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{url('admin')}}"><i class="fa fa-dashboard"></i> Quản lý mượn trả</a></li>

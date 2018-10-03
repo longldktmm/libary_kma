@@ -84,7 +84,7 @@
                     <ul class="sidebar-menu" data-widget="tree">
                         <li class="header">QUẢN LÝ</li>
                         <li class="treeview">
-                            <a href="#">
+                            <a href="{{url('admin/document/all')}}">
                                 <i class="fa fa-dashboard"></i> <span>Tài liệu</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -112,7 +112,7 @@
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a href="#">
+                            <a href="{{url('admin/account/all')}}">
                                 <i class="fa fa-share"></i> <span>Quản lý tài khoản</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -139,11 +139,11 @@
                                                                     </ul>
                                                                 </li>-->
                                 <li><a href="{{url('admin/account/all')}}"><i class="fa fa-circle-o"></i>  Xem | Tìm | Sửa | Xóa</a></li>
-                                <li><a href="{{url('admin/account/all')}}"><i class="fa fa-circle-o"></i> Lịch sử</a></li>
+                                <li><a href="{{url('admin/account/history')}}"><i class="fa fa-circle-o"></i> Lịch sử</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a href="#">
+                            <a href="{{url('admin/coming')}}">
                                 <i class="fa fa-files-o"></i>
                                 <span>Quản lý Vi phạm</span>
                                 <span class="pull-right-container">
@@ -151,12 +151,12 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="{{url('admin')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa Vi phạm</a></li>
-                                <li><a href="{{url('admin')}}"><i class="fa fa-circle-o"></i> Thêm vi phạm</a></li>
+                                <li><a href="{{url('admin/coming')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa Vi phạm</a></li>
+                                <li><a href="{{url('admin/coming')}}"><i class="fa fa-circle-o"></i> Thêm vi phạm</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
-                            <a href="{{url('admin')}}">
+                            <a href="{{url('admin/coming')}}">
                                 <i class="fa fa-files-o"></i>
                                 <span>Quản lý gợi ý tài liệu</span>
                                 <span class="pull-right-container">
@@ -164,15 +164,15 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="{{url('admin')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa</a></li>
-                                <li><a href="{{url('admin')}}"><i class="fa fa-circle-o"></i> Thêm gợi ý</a></li>
+                                <li><a href="{{url('admin/coming')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa</a></li>
+                                <li><a href="{{url('admin/coming')}}"><i class="fa fa-circle-o"></i> Thêm gợi ý</a></li>
                             </ul>
                         </li>
                         <li><a href="{{url('/admin/myaccount')}}"><i class="fa fa-book"></i> <span>Tài khoản cá nhân</span></a></li>
                         <li class="header">CHĂM SÓC KHÁCH HÀNG</li>
-                        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Báo lỗi</span></a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Nâng cấp</span></a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Hướng dẫn sử dụng</span></a></li>
+                        <li><a href="{{url('admin/coming')}}"><i class="fa fa-circle-o text-red"></i> <span>Báo lỗi</span></a></li>
+                        <li><a href="{{url('admin/coming')}}"><i class="fa fa-circle-o text-yellow"></i> <span>Nâng cấp</span></a></li>
+                        <li><a href="https://drive.google.com/file/d/1nHAvIH6qmkrc7ddRbKZtCGnvBTpE4WvA/view?usp=sharing" target="_blank"><i class="fa fa-circle-o text-aqua"></i> <span>Hướng dẫn sử dụng</span></a></li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -188,7 +188,7 @@
                 <div class="pull-right hidden-xs">
                     <b>Version</b> 1.0.0
                 </div>
-                <strong>Copyright &copy; 2018-2018 <a href="https://kma.net">Group 4 Studio</a>.</strong> All rights
+                <strong>Copyright &copy; 2018-2018 <a href="http://kmalibary.tk">Thực tập cơ sở Demo</a>.</strong> All rights
                 reserved.
             </footer>
 

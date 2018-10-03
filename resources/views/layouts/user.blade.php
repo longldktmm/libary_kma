@@ -136,7 +136,7 @@
                         </li>
                         <li><a href="{{url('myaccount')}}"><i class="fa fa-book"></i> <span>Tài khoản của tôi</span></a></li>
                         <li class="header">CHĂM SÓC KHÁCH HÀNG</li>
-                        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Báo lỗi</span></a></li>
+                        <li><a href="{{url('coming')}}"><i class="fa fa-circle-o text-red"></i> <span>Báo lỗi</span></a></li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -152,7 +152,7 @@
                 <div class="pull-right hidden-xs">
                     <b>Version</b> 1.0.0
                 </div>
-                <strong>Copyright &copy; 2018-2018 <a href="https://kmalibary.tk">Group 4 Studio</a>.</strong> All rights
+                <strong>Copyright &copy; 2018-2018 <a href="http://kmalibary.tk">Thực tập cơ sở Demo</a>.</strong> All rights
                 reserved.
             </footer>
 

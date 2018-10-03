@@ -16,10 +16,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/myaccount', "User\MyAccount@get");
     Route::post('/myaccount', "User\MyAccount@post");
     Route::post('/myaccount/changepassword', "User\MyAccount@changePwd");
-
     Route::get('/borrow', "User\Borrow@getAll");
     Route::get('/reimburse', "User\Reimburse@getAll");
-
+    Route::get('/coming', function () {
+        return view('user/coming_soon', []);
+    });
     Route::group(['middleware' => 'ChechkAdmin'], function() {
         Route::get('/admin', "Admin\Log@getAll");
         Route::get('/admin/account/', "Admin\Account@getAll");
@@ -29,6 +30,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/admin/account/delete/{id}', "Admin\Account@delete");
         Route::get('/admin/account/edit/{id}', "Admin\Account@getEdit");
         Route::post('/admin/account/edit/{id}', "Admin\Account@postEdit");
+        Route::get('/admin/account/history', "Admin\Account@getHistory");
 
         Route::get('/admin/document/', "Admin\Document@getAll");
         Route::get('/admin/document/all', "Admin\Document@getAll");
@@ -55,6 +57,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/admin/myaccount', "Admin\MyAccount@get");
         Route::post('/admin/myaccount', "Admin\MyAccount@post");
         Route::post('/admin/myaccount/changepassword', "Admin\MyAccount@changePwd");
+        Route::get('/admin/coming', function () {
+            return view('admin/coming_soon', []);
+        });
     });
 });
 
