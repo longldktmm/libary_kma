@@ -70,7 +70,7 @@
                     <select id = "input_department" name = "input_department" class="form-control">
                         <option value="{{$document->department}}" >{{$document->department}}</option>
                         @foreach($department as $row)
-                        <option value="{{$row->department_name}}">{{$row['department_name']}}</option>
+                        <option value="{{$row['department_name']}}">{{$row['department_name']}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -80,7 +80,7 @@
                     <select id = "input_status" name = "input_status" class="form-control" >
                         <option value="{{$document->status}}">{{$document->status}}</option>
                         @foreach($status as $row)
-                        <option value="{{$row->status_name}}">{{$row['status_name']}}</option>
+                        <option value="{{$row['status_name']}}">{{$row['status_name']}}</option>
                         @endforeach
                     </select>
                 </div>

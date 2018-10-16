@@ -47,6 +47,7 @@
                                 <th> Ngày mượn</th>
                                 <th> Số ngày mượn</th>
                                 <th> Trạng thái lúc mượn</th>
+                                <th> Tình trạng</th>
                                 <th> Xóa</th>
                             </tr>
                         </thead>
@@ -60,6 +61,7 @@
                                 <td>{{$row->created_at}}</td>
                                 <td>{{$row->expiry}}</td>
                                 <td>{{$row->document_status}}</td>
+                                <td>{{$row->booking_status_name}}</td>
                                 <td><a href="{{url('admin/borrow/delete')}}/{{$row->id}}"><button type="submit" class="btn btn-primary"> Xóa</button></a></td>
                             </tr>
                             @endforeach
@@ -72,6 +74,7 @@
                                 <th> Ngày mượn</th>
                                 <th> Số ngày mượn</th>
                                 <th> Trạng thái lúc mượn</th>
+                                <th> Tình trạng</th>
                                 <th> Xóa</th>
                             </tr>
                         </tfoot>

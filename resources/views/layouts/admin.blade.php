@@ -99,6 +99,21 @@
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-files-o"></i>
+                                <span>Quản lý Hẹn Mượn</span>
+                                <span class="pull-right-container">
+                                    <span class="fa fa-angle-left pull-right"></span>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{url('admin/borrow/booking/verify')}}"><i class="fa fa-circle-o"></i> Xác nhận</a></li>
+                                <li><a href="{{url('admin/borrow/booking/waiting')}}"><i class="fa fa-circle-o"></i> Đang chờ nhận sách</a></li>
+                                <li><a href="{{url('admin/borrow/all')}}"><i class="fa fa-circle-o"></i> Ngoại lệ</a></li>
+                                <li><a href="{{url('admin/borrow/all')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa Tất cả</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-files-o"></i>
                                 <span>Quản lý Mượn trả</span>
                                 <span class="pull-right-container">
                                     <span class="fa fa-angle-left pull-right"></span>
@@ -107,7 +122,7 @@
                             <ul class="treeview-menu">
                                 <li><a href="{{url('admin/borrow')}}"><i class="fa fa-circle-o"></i> Mượn</a></li>
                                 <li><a href="{{url('admin/reimburse')}}"><i class="fa fa-circle-o"></i> Trả</a></li>
-                                <li><a href="{{url('admin/borrow/all')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa Mượn</a></li>
+                                <li><a href="{{url('admin/borrow/all')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa Đã Mượn</a></li>
                                 <li><a href="{{url('admin/reimburse/all')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa Trả</a></li>
                             </ul>
                         </li>
@@ -140,6 +155,18 @@
                                                                 </li>-->
                                 <li><a href="{{url('admin/account/all')}}"><i class="fa fa-circle-o"></i>  Xem | Tìm | Sửa | Xóa</a></li>
                                 <li><a href="{{url('admin/account/history')}}"><i class="fa fa-circle-o"></i> Lịch sử</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="{{url('admin/coming')}}">
+                                <i class="fa fa-files-o"></i>
+                                <span>Thống kê</span>
+                                <span class="pull-right-container">
+                                    <span class="fa fa-angle-left pull-right"></span>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{url('admin/statistics/all')}}"><i class="fa fa-circle-o"></i> Xem | Làm mới</a></li>
                             </ul>
                         </li>
                         <li class="treeview">

@@ -14,7 +14,7 @@ use App\TblStatus;
 use Validator;
 use Webpatser\Uuid\Uuid;
 use DB;
-
+use App\TblStatistics;
 class Reimburse extends Controller {
 
     public function postAdd($username, Request $request) {
@@ -38,7 +38,7 @@ class Reimburse extends Controller {
 //Kiem tra tai lieu ton tai
             if ($document == "")
                 return redirect()->back()->withErrors("Tài liệu không tồn tại")->withInput();
-            if ($document->borrow_by == "")
+            if (is_null($document->borrow_by))
                 return redirect()->back()->withErrors("Tài liệu chưa được ai mượn hoặc đã được trả")->withInput();
             $borrow = TblBorrow::find($document->borrow_by);
             if ($borrow == "")
@@ -58,11 +58,21 @@ class Reimburse extends Controller {
             $reimburse->created_by = Auth::user()->username;
             $reimburse->save();
 //Update tai lieu
-            $document->borrow_by = "";
+            $document->borrow_by = null;
             $document->save();
+            //Update so luong
+            $documentStatistics = TblStatistics::where('document_name', $document->document_name)
+                    ->where('author', $document->author)
+                    ->where('type', $document->type)
+                    ->where('department', $document->department)
+                    ->first();
+            if ($documentStatistics != null) {
+                $documentStatistics->ready++;
+                $documentStatistics->save();
+            }
             //Tao Log
             $log = new TblLog();
-            $log->message = "Đã trả một quyển sách ".$document->id;
+            $log->message = "Đã trả một quyển sách " . $document->id;
             $log->created_by = Auth::user()->username;
             $log->save();
             return redirect()->back()->with('success', 'Trả thành công')->withInput();
@@ -106,7 +116,7 @@ class Reimburse extends Controller {
         $reimburse->delete();
         //Tao Log
         $log = new TblLog();
-        $log->message = "Đã xóa một phiếu trả ".$reimburse->id;
+        $log->message = "Đã xóa một phiếu trả " . $reimburse->id;
         $log->created_by = Auth::user()->username;
         $log->save();
         return redirect()->back()->with('success', 'Xóa thành công');

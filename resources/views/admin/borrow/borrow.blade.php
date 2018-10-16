@@ -79,6 +79,8 @@
                                     <th> Ngày mượn</th>
                                     <th> Số ngày mượn</th>
                                     <th> Trạng thái lúc mượn</th>
+                                    <th> Tình trạng hẹn</th>
+                                    <th> Mã gói hẹn</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,6 +93,8 @@
                                     <td>{{$row->created_at}}</td>
                                     <td>{{$row->expiry}}</td>
                                     <td>{{$row->document_status}}</td>
+                                    <td>{{$row->booking_status_name}}</td>
+                                    <td>{{$row->booking_code}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -102,6 +106,8 @@
                                     <th> Ngày mượn</th>
                                     <th> Số ngày mượn</th>
                                     <th> Trạng thái lúc mượn</th>
+                                    <th> Tình trạng hẹn</th>
+                                    <th> Mã gói hẹn</th>
                                 </tr>
                             </tfoot>
                         </table>

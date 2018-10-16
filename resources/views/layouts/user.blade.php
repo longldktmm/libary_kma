@@ -55,53 +55,13 @@
 
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
-                            <!-- Notifications: style can be found in dropdown.less -->
-                            <li class="dropdown notifications-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-bell-o"></i>
-                                    <span class="label label-warning">5</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="header">Bạn có 5 thông báo</li>
-                                    <li>
-                                        <!-- inner menu: contains the actual data -->
-                                        <ul class="menu">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-warning text-yellow"></i> Sách Lập trình cơ bản đã đến hạn
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-warning text-yellow"></i> Sách Kiến trúc mạng máy tính quá hạn
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-shopping-cart text-green"></i> Bạn đã trả sách Lập trình mạng
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-shopping-cart text-green"></i> Bạn đã trả sách Phân tích thiết kế hệ thống
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-user text-red"></i> Bạn đã mượn Giáo trình đại cương
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="footer"><a href="#">View all</a></li>
-                                </ul>
+                            <!-- Logout -->
                             <li>
                                 <a href="{{url('logout')}}" >
                                     <i class="fa fa-user"></i>
                                     <span class="Button">Đăng xuất</span>
                                 </a>
                             </li>
-
                         </ul>
                     </div>
                 </nav>
@@ -121,10 +81,11 @@
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu" data-widget="tree">
-                        <li class="header">QUẢN LÝ</li>
+                        <li class="header"> Quản lý</li>
+                        <li><a href="{{url('borrow/booking')}}"><i class="fa fa-book"></i> <span> Hẹn mượn sách</span></a></li>
                         <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-book"></i> <span>Tài liệu</span>
+                                <i class="fa fa-book"></i> <span> Mượn Trả Tài liệu</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>

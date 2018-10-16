@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,6 +9,7 @@ use App\TblLog;
 use App\TblDepartment;
 use Validator;
 use DB;
+use Webpatser\Uuid\Uuid;
 class Account extends Controller {
 
     public function postAdd(Request $request) {
@@ -53,7 +52,7 @@ class Account extends Controller {
             return redirect()->back()->withErrors($validator)->withInput();
         } else {
             $account = new User();
-            $account->id = $request->input_user_code;
+            $account->id = Uuid::generate(4);
             $account->name = $request->input_user_name;
             $account->role = $request->input_role;
             $account->username = $request->input_username;

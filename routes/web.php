@@ -17,6 +17,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/myaccount', "User\MyAccount@post");
     Route::post('/myaccount/changepassword', "User\MyAccount@changePwd");
     Route::get('/borrow', "User\Borrow@getAll");
+    Route::get('/borrow/booking', "User\Borrow@bookingGetHome")->name('bookingHome');
+    Route::post('/borrow/booking/add', "User\Borrow@bookingPostAdd");
+    Route::post('/borrow/booking/delete', "User\Borrow@bookingDelete");
+    Route::post('/borrow/booking/set-booking-time', "User\Borrow@bookingSetTimeAndSentRequest");
+
     Route::get('/reimburse', "User\Reimburse@getAll");
     Route::get('/coming', function () {
         return view('user/coming_soon', []);
@@ -46,6 +51,12 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/admin/borrow/add/{username}', "Admin\Borrow@postAdd");
         Route::get('/admin/borrow/delete/{id}', "Admin\Borrow@delete");
         Route::get('/admin/borrow/all', "Admin\Borrow@getAll");
+        Route::get('/admin/borrow/booking/verify', "Admin\Borrow@bookingGetVerify")->name('bookingVerifygAdmin');
+        Route::post('/borrow/booking/allow', "Admin\Borrow@bookingAllow");
+        Route::post('/admin/borrow/booking/deny', "Admin\Borrow@bookingDeny");
+        Route::post('/admin/borrow/booking/set-booking-time', "Admin\Borrow@bookingSetTimeAndSentRequest");
+        Route::get('/admin/borrow/booking/waiting', "Admin\Borrow@bookingGetWaiting")->name('bookingWaitingAdmin');
+
 
         Route::get('/admin/reimburse/', "Admin\Reimburse@getHome");
         Route::post('/admin/reimburse/', "Admin\Reimburse@postHome");
@@ -53,6 +64,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/admin/reimburse/add/{username}', "Admin\Reimburse@postAdd");
         Route::get('/admin/reimburse/delete/{id}', "Admin\Reimburse@delete");
         Route::get('/admin/reimburse/all', "Admin\Reimburse@getAll");
+
+        Route::get('/admin/statistics/all', "Admin\Statistics@getAll")->name('adminAllStatistics');
+        Route::post('/admin/statistics/refresh', "Admin\Statistics@refresh");
 
         Route::get('/admin/myaccount', "Admin\MyAccount@get");
         Route::post('/admin/myaccount', "Admin\MyAccount@post");
