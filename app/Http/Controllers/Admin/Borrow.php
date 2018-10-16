@@ -171,6 +171,7 @@ class Borrow extends Controller {
                 ->where('booking_status', 2)
                 ->join('status_booking', 'status_booking.id', '=', 'borrow.booking_status')
                 ->get();
+        return  $data['bookingDataVerify'];
         return view('admin/borrow/booking/waiting', $data);
     }
 
