@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/admin/borrow/add/{username}', "Admin\Borrow@postAdd");
         Route::get('/admin/borrow/delete/{id}', "Admin\Borrow@delete");
         Route::get('/admin/borrow/all', "Admin\Borrow@getAll");
-        Route::get('/admin/borrow/booking/verify', "Admin\Borrow@bookingGetVerify")->name('bookingVerifygAdmin');
+        Route::get('/admin/borrow/booking/verify', "Admin\Borrow@bookingGetVerify")->name('bookingVerifyAdmin');
         Route::post('/borrow/booking/allow', "Admin\Borrow@bookingAllow");
         Route::post('/admin/borrow/booking/deny', "Admin\Borrow@bookingDeny");
         Route::post('/admin/borrow/booking/set-booking-time', "Admin\Borrow@bookingSetTimeAndSentRequest");

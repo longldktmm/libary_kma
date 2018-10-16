@@ -165,16 +165,13 @@ class Borrow extends Controller {
         }
         return view('admin/borrow/booking/all', $data);
     }
-
     public function bookingGetWaiting() {
         $data['bookingDataVerify'] = DB::table('borrow')
                 ->where('booking_status', 2)
                 ->join('status_booking', 'status_booking.id', '=', 'borrow.booking_status')
                 ->get();
-        return  $data['bookingDataVerify'];
         return view('admin/borrow/booking/waiting', $data);
     }
-
     public function bookingDeny(Request $request) {
         $rules = [
             'input_booking_id' => 'required| string| max: 36',

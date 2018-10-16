@@ -13,7 +13,7 @@ use Validator;
 use Webpatser\Uuid\Uuid;
 use DB;
 
-class Borrow extends Controller {
+class Violate extends Controller {
 
     public function postAdd($username, Request $request) {
         $rules = [
