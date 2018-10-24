@@ -124,7 +124,7 @@
                                 <th> Khoa</th>
                                 <th> Loại</th>
                                 <th> Trạng thái</th>
-                                <th> Số ngày mượn</th>
+                                <th> Số ngày mượn còn lại</th>
                                 <th> Ngày mượn</th>
                                 <th> Gói mượn</th>
                                 <th> Ghi chú</th>
@@ -145,11 +145,16 @@
                                 <td>{{$row->booking_code}}</td>
                                 <td>{{$row->note}}</td>
                                 <td>
+                                    @if ($row->booking_status_name == "Bị từ chối" 
+                                    || $row->booking_status_name == "Chờ hẹn ngày"
+                                    || $row->booking_status_name == "Chờ xử lý"
+                                    )
                                     <form action="{{url('borrow/booking/delete')}}" method="POST">
                                         {{csrf_field()}}
                                         <input id="input_document_code" type="text" name="input_document_code" value="{{$row->id}}" hidden="true"/>
                                         <input type="submit" value=" Xóa">
                                     </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
@@ -162,7 +167,7 @@
                                 <th> Khoa</th>
                                 <th> Loại</th>
                                 <th> Trạng thái</th>
-                                <th> Số ngày mượn</th>
+                                <th> Số ngày mượn còn lại</th>
                                 <th> Ngày mượn</th>
                                 <th> Gói mượn</th>
                                 <th> Ghi chú</th>

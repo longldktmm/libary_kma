@@ -60,6 +60,20 @@
                     <a href="{{url('admin/borrow')}}"><button type="button" class="btn btn-primary"> Trở về</button></a>
                 </div>
             </form>
+            <form action="{{url('admin/borrow/allow-all-user')}}" enctype="multipart/form-data"  role="form" method="post">
+                {{csrf_field()}}
+                <div class="box-footer">
+                    <input id = "input_username" name = "input_username" value="{{$user->username}}" type="hidden" class="form-control">
+                    <button type="submit" class="btn btn-primary"> Gói mượn: Đã nhận</button>
+                </div>
+            </form>
+            <form action="{{url('admin/borrow/delete-all-user')}}" enctype="multipart/form-data"  role="form" method="post">
+                {{csrf_field()}}
+                <div class="box-footer">
+                    <input id = "input_username" name = "input_username" value="{{$user->username}}" type="hidden" class="form-control">
+                    <button type="submit" class="btn btn-primary"> Gói mượn: Xóa hết</button>
+                </div>
+            </form>
         </div>
         <!-- /.box -->
         <div class="row">
@@ -83,7 +97,7 @@
                                     <th> Mã gói hẹn</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody> 
                                 <?php $i = 0; ?>
                                 @foreach($borrow as $row)
                                 <tr>
@@ -95,6 +109,17 @@
                                     <td>{{$row->document_status}}</td>
                                     <td>{{$row->booking_status_name}}</td>
                                     <td>{{$row->booking_code}}</td>
+                                    <td>        
+                                        @if($row->booking_status_name == "Chờ đến nhận" 
+                                        || $row->booking_status_name == "Ngoại lệ"
+                                        )
+                                        <form action="{{url('admin/borrow/booking/lend')}}" enctype="multipart/form-data"  role="form" method="post">
+                                            {{csrf_field()}}
+                                            <input id = "input_borrow_id" name = "input_borrow_id" value="{{$row->id}}" type="hidden" class="form-control">
+                                            <button type="submit" class="btn btn-primary" value="submit"> Giao</button>
+                                        </form>
+                                        @endif
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

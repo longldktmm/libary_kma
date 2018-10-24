@@ -42,6 +42,7 @@
                         <thead>
                             <tr>
                                 <th> Stt</th>
+                                <th> Phiếu mượn</th>
                                 <th> Mã sách</th>
                                 <th> Tên sách</th>
                                 <th> Ngày mượn</th>
@@ -56,6 +57,7 @@
                             @foreach($borrow as $row)
                             <tr>
                                 <td>{{$i+=1}}</td>
+                                <td>{{$row->id}}</td>
                                 <td>{{$row->document_code}}</td>
                                 <td>{{$row->document_name}}</td>
                                 <td>{{$row->created_at}}</td>
@@ -69,6 +71,7 @@
                         <tfoot>
                             <tr>
                                 <th> Stt</th>
+                                <th> Phiếu mượn</th>
                                 <th> Mã sách</th>
                                 <th> Tên sách</th>
                                 <th> Ngày mượn</th>

@@ -3,9 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/source_code/php/libary_kma/resources/views/layouts/admin.blade.php</file>
-            <file>file:/E:/source_code/php/libary_kma/resources/views/admin/borrow/all.blade.php</file>
-            <file>file:/E:/source_code/php/libary_kma/resources/views/user/borrow/booking/all.blade.php</file>
+            <file>file:/E:/source_code/php/libary_kma/app/Http/Controllers/Admin/Account.php</file>
+            <file>file:/E:/source_code/php/libary_kma/routes/web.php</file>
         </group>
     </open-files>
 </project-private>

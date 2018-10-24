@@ -77,7 +77,7 @@ class Borrow extends Controller {
             }
 //Tao Log
             $log = new TblLog();
-            $log->message = "Đã cho " . $username . " mượn một quyển sách";
+            $log->message = "Đã cho " . $username . " mượn một tài liệu mã " . $borrow->document_code;
             $log->created_by = Auth::user()->username;
             $log->save();
             return redirect()->back()->with('success', 'Thêm thành công')->withInput();
@@ -90,6 +90,10 @@ class Borrow extends Controller {
                 ->where('username', $username)
                 ->join('document', 'borrow.document_code', '=', 'document.id')
                 ->join('status_booking', 'status_booking.id', '=', 'borrow.booking_status')
+                ->select(['borrow.id as id', 'expiry', 'booking_time',
+                    'booking_status_name', 'type', 'department',
+                    'author', 'document_code', 'username',
+                    'booking_status', 'document_name', 'booking_code', 'borrow.created_at as created_at', 'document_status'])
                 ->get();
 //        $data['borrow'] = TblBorrow::where('username', $username)->get();
         return view('admin/borrow/borrow', $data);
@@ -118,20 +122,43 @@ class Borrow extends Controller {
     }
 
     public function delete($id) {
-        $borrow = TblBorrow::where('document_code', $id)->first();
+        $borrow = TblBorrow::where('id', $id)->first();
         if ($borrow == "")
             return redirect()->back()->withErrors("Phiếu mượn không tồn tại")->withInput();
         $borrow->delete();
+        //Tim tai lieu
+        $document = TblDocument::find($borrow->document_code);
+//Kiem tra tai lieu ton tai
+        if ($document != "" && is_null($document->borrow_by) == false && $borrow->booking_status == 5) {
+            $document->borrow_by = null;
+            $document->save;
+            $documentStatistics = TblStatistics::where('document_name', $document->document_name)
+                    ->where('author', $document->author)
+                    ->where('type', $document->type)
+                    ->where('department', $document->department)
+                    ->first();
+            if ($documentStatistics != null) {
+                $documentStatistics->ready--;
+                $documentStatistics->save();
+            }
+        }
         //Tao Log
         $log = new TblLog();
-        $log->message = "Đã xóa " . $id;
+        $log->message = "Đã xóa phiếu mượn " . $borrow->id;
         $log->created_by = Auth::user()->username;
         $log->save();
         return redirect()->back()->with('success', 'Xóa thành công');
     }
 
     public function getAll() {
-        $data['borrow'] = DB::table('borrow')->join('status_booking', 'status_booking.id', '=', 'borrow.booking_status')->join('document', 'borrow.document_code', '=', 'document.id')->get();
+        $data['borrow'] = DB::table('borrow')
+                ->join('status_booking', 'status_booking.id', '=', 'borrow.booking_status')
+                ->join('document', 'borrow.document_code', '=', 'document.id')
+                ->select(['borrow.id as id', 'expiry', 'booking_time',
+                    'booking_status_name', 'type', 'department',
+                    'author', 'document_code', 'username',
+                    'booking_status', 'document_name', 'booking_code', 'borrow.created_at as created_at', 'document_status'])
+                ->get();
 //        $data['borrow'] = \App\TblBorrow::all()->sortByDesc('created_at');
         return view('admin/borrow/all', $data);
     }
@@ -165,6 +192,7 @@ class Borrow extends Controller {
         }
         return view('admin/borrow/booking/all', $data);
     }
+
     public function bookingGetWaiting() {
         $data['bookingDataVerify'] = DB::table('borrow')
                 ->where('booking_status', 2)
@@ -172,6 +200,7 @@ class Borrow extends Controller {
                 ->get();
         return view('admin/borrow/booking/waiting', $data);
     }
+
     public function bookingDeny(Request $request) {
         $rules = [
             'input_booking_id' => 'required| string| max: 36',
@@ -261,7 +290,7 @@ class Borrow extends Controller {
                     $borrow = TblBorrow:: where('username', $borrow->username)
                             ->where('booking_status', 2)
                             ->orWhere('booking_status', 1)
-                            ->update(['booking_code' => $request->input_booking_code]);
+                            ->update(['booking_code' => $request->input_booking_code, 'booking_time' => $borrow->booking_time]);
                     return redirect()->back()->with('success', 'Duyệt thành công');
                 } else {
                     return redirect()->back()->withErrors("Mã tài liệu không tồn tại")->withInput();
@@ -270,6 +299,42 @@ class Borrow extends Controller {
                 return redirect()->back()->withErrors("Chỉ duyệt được bản ghi đang chờ xử lý")->withInput();
             }
             return redirect()->back()->with('success', 'Duyệt thành công');
+        }
+    }
+
+    public function bookingLend(Request $request) {
+        $rules = [
+            'input_borrow_id' => 'required| string| max: 36'
+        ];
+        $messages = [
+            'input_borrow_id.required' => 'Phải nhập một mã phiếu mượn',
+            'input_borrow_id.max' => ' Mã quá dài',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            $borrow = TblBorrow::where('id', $request->input_borrow_id)->first();
+            if ($borrow == null) {
+                return redirect()->back()->withErrors("Bản ghi không còn tồn tại")->withInput();
+            } else if ($borrow->booking_status == 2 || $borrow->booking_status == 3) {
+                $borrow->booking_status = 5;
+                $borrow->save();
+                $document = TblDocument::where('id', $borrow->document_code)->first();
+                if ($document == null) {
+                    return redirect()->back()->withErrors("Mã tài liệu không còn tồn tại")->withInput();
+                } else {
+                    $document->save();
+                }
+                $log = new TblLog();
+                $log->message = "Đã giao cho " . $borrow->username . " 1 tài liệu mã " . $borrow->document_code;
+                $log->created_by = Auth::user()->username;
+                $log->save();
+                return redirect()->back()->with('success', 'Giao tài liệu thành công');
+            } else {
+                return redirect()->back()->withErrors("Phiếu mượn không phải đang chờ đến nhận")->withInput();
+            }
         }
     }
 

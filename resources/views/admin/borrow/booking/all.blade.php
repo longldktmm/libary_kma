@@ -71,7 +71,8 @@
                                 <th> Số ngày mượn</th>
                                 <th> Ngày mượn</th>
                                 <th> Mã người dùng</th>
-                                <th> Mã gói sách</th>
+                                <th> Mã gói tài liệu</th>
+                                <th> Mã tài liệu đề nghị</th>
                                 <th> Phê duyệt</th>
                                 <th> Từ chối</th>
                             </tr>
@@ -90,6 +91,7 @@
                                 <td>{{$row->booking_time}}</td>
                                 <td>{{$row->username}}</td>
                                 <td>{{$row->booking_code}}</td>
+                                <td>{{$row->document_code}}</td>
                                 <td>
                                     <form action="{{url('borrow/booking/allow')}}" method="POST">
                                         {{csrf_field()}}
@@ -122,6 +124,7 @@
                                 <th> Ngày mượn</th>
                                 <th> Gói mượn</th>
                                 <th> Mã gói sách</th>
+                                <th> Mã tài liệu đề nghị</th>
                                 <th> Phê duyệt</th>
                                 <th> Từ chối</th>
                             </tr>

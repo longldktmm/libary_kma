@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Admin | KMA LIBARY</title>
+        <title>Admin | KMA LIBRARY</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
@@ -180,19 +180,6 @@
                             <ul class="treeview-menu">
                                 <li><a href="{{url('admin/coming')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa Vi phạm</a></li>
                                 <li><a href="{{url('admin/coming')}}"><i class="fa fa-circle-o"></i> Thêm vi phạm</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="{{url('admin/coming')}}">
-                                <i class="fa fa-files-o"></i>
-                                <span>Quản lý gợi ý tài liệu</span>
-                                <span class="pull-right-container">
-                                    <span class="fa fa-angle-left pull-right"></span>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="{{url('admin/coming')}}"><i class="fa fa-circle-o"></i> Xem | Chỉnh sửa</a></li>
-                                <li><a href="{{url('admin/coming')}}"><i class="fa fa-circle-o"></i> Thêm gợi ý</a></li>
                             </ul>
                         </li>
                         <li><a href="{{url('/admin/myaccount')}}"><i class="fa fa-book"></i> <span>Tài khoản cá nhân</span></a></li>

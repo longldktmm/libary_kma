@@ -1,18 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\User;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use DB;
 use Validator;
 use App\TblStatistics;
-use App\User;
 use App\TblBorrow;
 use Webpatser\Uuid\Uuid;
 use App\TblDocument;
-
+use App\TblLog;
 class Borrow extends Controller {
 
     public function getAll() {
@@ -69,13 +67,13 @@ class Borrow extends Controller {
             if ($documentStatistics->type == "Giáo án" && $user->role != "Sinh viên")
                 return redirect()->back()->withErrors("Error 05: Bạn không có quyền mượn quyển này")->withInput();
 //Kiem tra so luong da muon + trung
-            $borrow = TblBorrow::where('username', $user->username)->where('booking_status', '<>', 0)->first();
-            if ($borrow != null)
-                return redirect()->back()->withErrors("Error 06: Đang mượn, đang chờ xử lý hoặc chưa xóa sách bị từ chối")->withInput();
-            $borrow = TblBorrow::where('username', $user->username)->where('booking_status', 0)->get();
+//            $borrow = TblBorrow::where('username', $user->username)->where('booking_status', 4)->first();
+//            if ($borrow != null)
+//                return redirect()->back()->withErrors("Error 06: Chưa xóa tài liệu bị từ chối")->withInput();
+            $borrow = TblBorrow::where('username', $user->username)->get();
 //            return $borrow;
-            if (count($borrow) >= 5)
-                return redirect()->back()->withErrors("Error 07: Chỉ được mượn tối đa 5 quyển")->withInput();
+            if (count($borrow) >= 3)
+                return redirect()->back()->withErrors("Error 07: Chỉ được mượn tổng tối đa 3 quyển")->withInput();
 //random 1 quyển sách trong bộ
             $document = TblDocument::where('document_name', $documentStatistics->document_name)
                     ->where('author', $documentStatistics->author)
@@ -169,6 +167,11 @@ class Borrow extends Controller {
             $borrow = TblBorrow:: where('username', $account->username)
                     ->where('booking_status', 0)
                     ->update(['booking_status' => 1, 'booking_time' => $request->input_booking_time]);
+            $log = new TblLog();
+            $log->message = $account->username . " đã xin xác nhận phiếu hẹn ";
+  
+            $log->created_by = $account->username;
+            $log->save();
             return redirect()->back()->with('success', 'Hẹn thành công, đang chờ xét duyệt');
         }
     }

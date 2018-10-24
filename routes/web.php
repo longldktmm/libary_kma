@@ -49,6 +49,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/admin/borrow/', "Admin\Borrow@postHome");
         Route::get('/admin/borrow/add/{username}', "Admin\Borrow@getAdd")->name('userProfile');
         Route::post('/admin/borrow/add/{username}', "Admin\Borrow@postAdd");
+        Route::post('/admin/borrow/booking/lend', "Admin\Borrow@bookingLend");
         Route::get('/admin/borrow/delete/{id}', "Admin\Borrow@delete");
         Route::get('/admin/borrow/all', "Admin\Borrow@getAll");
         Route::get('/admin/borrow/booking/verify', "Admin\Borrow@bookingGetVerify")->name('bookingVerifyAdmin');

@@ -53,6 +53,7 @@
                                 <th> Mới</th>
                                 <th> Cũ</th>
                                 <th> Hỏng</th>
+                                <th> Mất</th>
                                 <th> Đang đặt sách</th>
                                 <th> Đang chờ xử lý</th>
                                 <th> Đang chờ đến lấy sách</th>
@@ -74,6 +75,7 @@
                                 <td>{{$row->new}}</td>
                                 <td>{{$row->old}}</td>
                                 <td>{{$row->broken}}</td>
+                                <td>{{$row->lose}}</td>
                                 <td>{{$row->booking}}</td>
                                 <td>{{$row->waiting}}</td>
                                 <td>{{$row->verified}}</td>
@@ -94,6 +96,7 @@
                                 <th> Mới</th>
                                 <th> Cũ</th>
                                 <th> Hỏng</th>
+                                <th> Mất</th>
                                 <th> Đang đặt sách</th>
                                 <th> Đang chờ xử lý</th>
                                 <th> Đang chờ đến lấy sách</th>

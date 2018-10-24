@@ -85,14 +85,19 @@ class Document extends Controller {
         $log->save();
         return redirect()->back()->with('success', 'Xóa thành công');
     }
-
-    public function getEdit($id) {
+    public function getDetail($id) {
         $data['document'] = TblDocument::find($id);
         if ($data['document'] == "")
             return redirect()->back()->withErrors("Tài liệu không tồn tại")->withInput();
         $data['type'] = TblType::all();
         $data['status'] = TblStatus::all();
         $data['department'] = TblDepartment::all();
+        return view('admin/document/edit', $data);
+    }
+    public function getEdit($id) {
+        $data['document'] = TblDocument::find($id);
+        if ($data['document'] == "")
+            return redirect()->back()->withErrors("Tài liệu không tồn tại")->withInput();
         return view('admin/document/edit', $data);
     }
 
