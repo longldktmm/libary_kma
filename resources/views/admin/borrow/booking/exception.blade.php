@@ -10,8 +10,8 @@
         <small> HẸN MƯỢN SÁCH</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{url('admin/borrow/booking/waiting')}}"><i class="fa fa-dashboard"></i> Hẹn mượn sách</a></li>
-        <li class="active">         <a href="{{url('admin/borrow/booking/waiting')}}"> Đang chờ đến nhận sách</a></li>
+        <li><a href="{{url('admin/borrow/booking/')}}"><i class="fa fa-dashboard"></i> Hẹn mượn sách</a></li>
+        <li class="active">         <a href="{{url('admin/borrow/booking/allow/exception')}}"> Ngoại lệ</a></li>
     </ol>
 </section>
 <!-- Main content -->
@@ -30,10 +30,24 @@
         {{session('success')}}
     </div>
     @endif
-    <form action="{{url('admin/borrow/booking/waiting')}}" enctype="multipart/form-data"  role="form" method="get">
+    <form action="{{url('admin/borrow/booking/allow/exception')}}" enctype="multipart/form-data"  role="form" method="get">
         {{csrf_field()}}
         <div class="box-footer">
             <button type="submit" class="btn btn-primary" value="submit"> Làm mới</button>
+        </div>
+    </form>
+    <form action="{{url('borrow/booking/set-booking-time')}}" enctype="multipart/form-data" method="post">
+        <div class="box-footer">
+            {{csrf_field()}}
+            <input type="text" id="input_booking_time" name="input_booking_time" value="" hidden="true">
+            <button type="submit" class="btn btn-primary" value="submit"> Từ chối tất cả</button>
+        </div>
+    </form>
+    <form action="{{url('borrow/booking/set-booking-time')}}" enctype="multipart/form-data" method="post">
+        <div class="box-footer">
+            {{csrf_field()}}
+            <input type="text" id="input_booking_time" name="input_booking_time" value="" hidden="true">
+            <button type="submit" class="btn btn-primary" value="submit"> Xử lý sau</button>
         </div>
     </form>
     <!-- /.row -->
@@ -62,7 +76,7 @@
                         </thead>
                         <tbody>
                             <?php $i = 0; ?>
-                            @foreach($bookingDataVerify as $row)
+                            @foreach($bookingDataException as $row)
                             <tr>
                                 <td>{{$i+=1}}</td>
                                 <td>{{$row->document_code}}</td>
@@ -72,15 +86,7 @@
                                 <td>{{$row->booking_code}}</td>
                                 <td>{{$row->note}}</td>
                                 <td>{{$row->booking_status_name}}</td>
-                                <td>
-                                    <form action="{{url('admin/borrow/delete/{id}')}}" enctype="multipart/form-data" method="post">
-                                        <div class="box-footer">
-                                            {{csrf_field()}}
-                                            <input type="text" id="input_borrow_id" name="input_borrow_id" value="{{$row->id}}" hidden="true">
-                                            <button type="submit" class="btn btn-primary" value="submit"> Ngoại lệ</button>
-                                        </div>
-                                    </form>
-                                </td>
+                                <td><a href="{{url('admin/borrow/delete')}}/{{$row->id}}"><button type="submit" class="btn btn-primary"> Xóa</button></a></td>
                             </tr>
                             @endforeach
                         </tbody>

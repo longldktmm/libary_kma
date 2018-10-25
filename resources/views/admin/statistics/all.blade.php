@@ -36,6 +36,12 @@
             <button type="submit" class="btn btn-primary" value="submit"> Làm mới</button>
         </div>
     </form>
+        <form action="{{url('admin/statistics/end-day')}}" enctype="multipart/form-data"  role="form" method="post">
+        {{csrf_field()}}
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary" value="submit"> Kết thúc ngày làm việc</button>
+        </div>
+    </form>
     <div class="row">
         <div class="col-xs-12"> 
             <div class="box">

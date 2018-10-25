@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,7 @@ use App\TblBorrow;
 use Webpatser\Uuid\Uuid;
 use App\TblDocument;
 use App\TblLog;
+
 class Borrow extends Controller {
 
     public function getAll() {
@@ -85,8 +87,8 @@ class Borrow extends Controller {
                 return redirect()->back()->withErrors("Error 09: Rất tiếc, Tài liệu đã được đặt/mượn hết")->withInput();
 //Kiểm tra xem mượn chưa
             foreach ($borrow as $data) {
-//                if ($data->document_code == $request->input_id)
-//                    return redirect()->back()->withErrors("Bạn đã đăng ký muốn mượn quyển này")->withInput();
+                if ($data->expiry < 0)
+                    return redirect()->back()->withErrors("Phải trả tài liệu đã hết hạn mới được mượn tiếp")->withInput();
                 if ($data->document_code == $document->id)
                     return redirect()->back()->withErrors("Error 08: Bạn đã đăng ký muốn mượn quyển này")->withInput();
             }
@@ -169,7 +171,7 @@ class Borrow extends Controller {
                     ->update(['booking_status' => 1, 'booking_time' => $request->input_booking_time]);
             $log = new TblLog();
             $log->message = $account->username . " đã xin xác nhận phiếu hẹn ";
-  
+
             $log->created_by = $account->username;
             $log->save();
             return redirect()->back()->with('success', 'Hẹn thành công, đang chờ xét duyệt');

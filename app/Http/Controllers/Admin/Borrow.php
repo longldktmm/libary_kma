@@ -197,8 +197,35 @@ class Borrow extends Controller {
         $data['bookingDataVerify'] = DB::table('borrow')
                 ->where('booking_status', 2)
                 ->join('status_booking', 'status_booking.id', '=', 'borrow.booking_status')
+                ->select(['borrow.id as id', 'expiry', 'booking_time',
+                    'booking_status_name', 'note', 'document_code', 'username',
+                    'booking_status', 'booking_code'])
                 ->get();
         return view('admin/borrow/booking/waiting', $data);
+    }
+
+    public function getAllBorrowing() {
+        $data['borrow'] = DB::table('borrow')
+                ->where('booking_status', 5)
+                ->join('status_booking', 'status_booking.id', '=', 'borrow.booking_status')
+                ->join('document', 'borrow.document_code', '=', 'document.id')
+                ->select(['borrow.id as id', 'expiry', 'booking_time',
+                    'booking_status_name', 'type', 'department',
+                    'author', 'document_code', 'username',
+                    'booking_status', 'document_name', 'booking_code','borrow.created_at','document_status'])
+                ->get();
+        return view('admin/borrow/all', $data);
+    }
+
+    public function bookingGetAllowException() {
+        $data['bookingDataException'] = DB::table('borrow')
+                ->where('booking_status', 3)
+                ->join('status_booking', 'status_booking.id', '=', 'borrow.booking_status')
+                ->select(['borrow.id as id', 'expiry', 'booking_time',
+                    'booking_status_name', 'note', 'document_code', 'username',
+                    'booking_status', 'booking_code'])
+                ->get();
+        return view('admin/borrow/booking/exception', $data);
     }
 
     public function bookingDeny(Request $request) {
@@ -332,6 +359,36 @@ class Borrow extends Controller {
                 $log->created_by = Auth::user()->username;
                 $log->save();
                 return redirect()->back()->with('success', 'Giao tài liệu thành công');
+            } else {
+                return redirect()->back()->withErrors("Phiếu mượn không phải đang chờ đến nhận hoặc ngoại lệ")->withInput();
+            }
+        }
+    }
+
+    public function bookingAllowException(Request $request) {
+        $rules = [
+            'input_borrow_id' => 'required| string| max: 36'
+        ];
+        $messages = [
+            'input_borrow_id.required' => 'Phải nhập một mã phiếu mượn',
+            'input_borrow_id.max' => ' Mã quá dài',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            $borrow = TblBorrow::where('id', $request->input_borrow_id)->first();
+            if ($borrow == null) {
+                return redirect()->back()->withErrors("Bản ghi không còn tồn tại")->withInput();
+            } else if ($borrow->booking_status == 2) {
+                $borrow->booking_status = 3;
+                $borrow->save();
+                $log = new TblLog();
+                $log->message = "Đã cho " . $borrow->username . " ngoại lệ phiếu mượn " . $borrow->document_code;
+                $log->created_by = Auth::user()->username;
+                $log->save();
+                return redirect()->back()->with('success', 'Thêm vào ngoại lệ thành công');
             } else {
                 return redirect()->back()->withErrors("Phiếu mượn không phải đang chờ đến nhận")->withInput();
             }

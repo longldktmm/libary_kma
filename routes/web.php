@@ -51,13 +51,16 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/admin/borrow/add/{username}', "Admin\Borrow@postAdd");
         Route::post('/admin/borrow/booking/lend', "Admin\Borrow@bookingLend");
         Route::get('/admin/borrow/delete/{id}', "Admin\Borrow@delete");
-        Route::get('/admin/borrow/all', "Admin\Borrow@getAll");
+        Route::get('/admin/borrow/booking/all', "Admin\Borrow@getAll");
+        Route::get('/admin/borrow/all', "Admin\Borrow@getAllBorrowing");
+
         Route::get('/admin/borrow/booking/verify', "Admin\Borrow@bookingGetVerify")->name('bookingVerifyAdmin');
-        Route::post('/borrow/booking/allow', "Admin\Borrow@bookingAllow");
+        Route::post('/admin/borrow/booking/allow', "Admin\Borrow@bookingAllow");
+        Route::post('/admin/borrow/booking/allow/exception', "Admin\Borrow@bookingAllowException");
+        Route::get('/admin/borrow/booking/allow/exception', "Admin\Borrow@bookingGetAllowException");
         Route::post('/admin/borrow/booking/deny', "Admin\Borrow@bookingDeny");
         Route::post('/admin/borrow/booking/set-booking-time', "Admin\Borrow@bookingSetTimeAndSentRequest");
         Route::get('/admin/borrow/booking/waiting', "Admin\Borrow@bookingGetWaiting")->name('bookingWaitingAdmin');
-
 
         Route::get('/admin/reimburse/', "Admin\Reimburse@getHome");
         Route::post('/admin/reimburse/', "Admin\Reimburse@postHome");
@@ -68,6 +71,7 @@ Route::group(['middleware' => 'auth'], function() {
 
         Route::get('/admin/statistics/all', "Admin\Statistics@getAll")->name('adminAllStatistics');
         Route::post('/admin/statistics/refresh', "Admin\Statistics@refresh");
+        Route::post('/admin/statistics/end-day', "Admin\Statistics@endDay");
 
         Route::get('/admin/myaccount', "Admin\MyAccount@get");
         Route::post('/admin/myaccount', "Admin\MyAccount@post");
