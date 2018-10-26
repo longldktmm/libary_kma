@@ -48,10 +48,22 @@ class Borrow extends Controller {
             $user = User::where('username', $username)->first();
             if ($user == "")
                 return redirect()->back()->withErrors("Người dùng không tồn tại")->withInput();
-            if ($document->department == "Mật mã" && $user->department != "Mật mã")
-                return redirect()->back()->withErrors("Bạn không có quyền mượn quyển này")->withInput();
-            if ($document->type == "Giáo án" && $user->role != "Sinh viên")
-                return redirect()->back()->withErrors("Bạn không có quyền mượn quyển này")->withInput();
+            if ($documentStatistics->department == "Mật mã" && $user->department != "Mật mã")
+                return redirect()->back()->withErrors("Chỉ khoa mật mã mới được mượn tài liệu này")->withInput();
+            if ($documentStatistics->type == "Giáo án" && $user->role != "Giáo viên")
+                return redirect()->back()->withErrors("Chỉ giáo viên mới được mượn tài liệu này")->withInput();
+//Kiểm tra số lượng, hết hạn            
+            $borrow = TblBorrow::where('username', $username)->where('booking_status', 5)->orWhere('booking_status', 2)->get();
+//            return $borrow;
+            if (count($borrow) >= 3)
+                return redirect()->back()->withErrors("Error 07: Chỉ được mượn tổng tối đa 3 quyển")->withInput();
+//Kiểm tra xem mượn chưa
+            foreach ($borrow as $data) {
+                if ($data->expiry < 0)
+                    return redirect()->back()->withErrors("Phải trả tài liệu đã hết hạn mới được mượn tiếp")->withInput();
+                if ($data->document_code == $request->input_document_code)
+                    return redirect()->back()->withErrors("Người dùng đang mượn quyển này")->withInput();
+            }
 //Tao phieu muon
             $borrow = new TblBorrow();
             $borrow->id = Uuid::generate(4);
