@@ -27,7 +27,7 @@ class LoginController extends Controller {
             'password' => 'required|min:4'
         ];
         $messages = [
-            'username.required' => 'Email là trường bắt buộc',
+            'username.required' => 'Tên đăng nhập là trường bắt buộc',
             'username.min' => 'Tên đăng nhập không được để trống',
             'password.required' => 'Mật khẩu là trường bắt buộc',
             'password.min' => 'Mật khẩu phải chứa ít nhất 8 ký tự',
