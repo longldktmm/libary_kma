@@ -165,7 +165,7 @@ class Borrow extends Controller {
 
     public function bookingSetTimeAndSentRequest(Request $request) {
         $rules = [
-            'input_booking_time' => 'required | date_format:y/m/d|regex:/^\d\d\/\d\d\/\d\d$/',
+            'input_booking_time' => 'required | date_format:Y/m/d|regex:/^\d\d\d\d\/\d\d\/\d\d$/',
         ];
         $messages = [
             'input_booking_time.required' => 'Thời gian hẹn không được để trống',
@@ -177,6 +177,9 @@ class Borrow extends Controller {
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         } else {
+            if ($request->input_booking_time < date("Y/m/d")) {
+                return redirect()->back()->withErrors("Error:11 Cần chọn ngày hẹn >= hôm nay")->withInput();
+            }
             $account = Auth::user();
             $borrow = TblBorrow:: where('username', $account->username)
                     ->where('booking_status', 0)

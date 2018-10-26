@@ -200,7 +200,7 @@
 <script>
     $(function () {
     $('#input_booking_time').datepicker({
-    format: 'yy/mm/dd',
+    format: 'yyyy/mm/dd',
             autoclose: true,
             todayHighlight: true
     });
