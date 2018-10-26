@@ -62,14 +62,14 @@
                             <tr>
                                 <td>{{$i+=1}}</td>
                                 <td>{{$row->id}}</td>
-                                <td>{{$row->document_name}}</td>
+                                <td><div style="max-height: 100px; overflow-y: scroll">{{$row->document_name}}</div></td>
                                 <td>{{$row->author}}</td>
                                 <td>{{$row->publishing_company}}</td>
                                 <td>{{$row->type}}</td>
                                 <td>{{$row->department}}</td>
                                 <td>{{$row->status}}</td>
                                 <td>{{$row->borrow_by}}</td>
-                                <td>{{$row->review}}</td>
+                                <td><div style="max-height: 100px; overflow-y: scroll">{{$row->review}}</div></td>
                                 <td>{{$row->updated_at}}</td> 
                                 <td><a href="{{url('admin/document/edit')}}/{{$row->id}}"><button type="submit" class="btn btn-primary"> Sửa </button></a></td>
                                 <td><a href="{{url('admin/document/delete')}}/{{$row->id}}"><button type="submit" class="btn btn-primary"> Xóa</button></a></td>
@@ -115,8 +115,4 @@
     $('#classroom_table').DataTable()
     })
 </script>
-<script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML">
-</script>
-
 @endsection

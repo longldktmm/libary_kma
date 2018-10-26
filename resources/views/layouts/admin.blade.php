@@ -92,7 +92,7 @@
                             <ul class="treeview-menu">
                                 <li><a href="{{url('admin/document/add')}}"><i class="fa fa-circle-o"></i> Thêm tài liệu</a></li>
                                 <li><a href="{{url('admin/document/all')}}"><i class="fa fa-circle-o"></i> Xem | Tìm | Sửa | Xóa</a></li>
-                                <li><a href="{{url('admin/document/all')}}"><i class="fa fa-circle-o"></i> Lịch sử</a></li>
+                                <li><a href="{{url('admin/coming')}}"><i class="fa fa-circle-o"></i> Lịch sử</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
