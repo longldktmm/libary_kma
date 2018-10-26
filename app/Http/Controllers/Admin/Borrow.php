@@ -65,7 +65,7 @@ class Borrow extends Controller {
                     return redirect()->back()->withErrors("Người dùng đã đăng ký mượn quyển này")->withInput();
                 } else {
                     $document2 = TblDocument::where('id', $data->document_code)
-                            ->where('author', $document->document_name)
+                            ->where('document_name', $document->document_name)
                             ->where('author', $document->author)
                             ->where('type', $document->type)
                             ->where('department', $document->department)

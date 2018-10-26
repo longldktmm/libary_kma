@@ -93,7 +93,7 @@ class Borrow extends Controller {
                     return redirect()->back()->withErrors("Error 09: Bạn đã đăng ký muốn mượn quyển này")->withInput();
                 if ($data->document_code != $document->id && $data->booking_status == 5) {
                     $document2 = TblDocument::where('id', $data->document_code)
-                            ->where('author', $documentStatistics->document_name)
+                            ->where('document_name', $documentStatistics->document_name)
                             ->where('author', $documentStatistics->author)
                             ->where('type', $documentStatistics->type)
                             ->where('department', $documentStatistics->department)
