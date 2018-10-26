@@ -88,9 +88,19 @@ class Borrow extends Controller {
 //Kiểm tra xem mượn chưa
             foreach ($borrow as $data) {
                 if ($data->expiry < 0)
-                    return redirect()->back()->withErrors("Phải trả tài liệu đã hết hạn mới được mượn tiếp")->withInput();
-                if ($data->document_code == $document->id)
-                    return redirect()->back()->withErrors("Error 08: Bạn đã đăng ký muốn mượn quyển này")->withInput();
+                    return redirect()->back()->withErrors("Error 08: BPhải trả tài liệu đã hết hạn mới được mượn tiếp")->withInput();
+                if ($data->document_code == $document->id && $data->booking_status != 5)
+                    return redirect()->back()->withErrors("Error 09: Bạn đã đăng ký muốn mượn quyển này")->withInput();
+                if ($data->document_code != $document->id && $data->booking_status == 5) {
+                    $document2 = TblDocument::where('id', $data->document_code)
+                            ->where('author', $documentStatistics->document_name)
+                            ->where('author', $documentStatistics->author)
+                            ->where('type', $documentStatistics->type)
+                            ->where('department', $documentStatistics->department)
+                            ->first();
+                    if ($document2 != "")
+                        return redirect()->back()->withErrors("Error 10: Bạn đang mượn quyển này")->withInput();
+                }
             }
 //Tao phieu muon
             $borrow = new TblBorrow();
@@ -169,7 +179,7 @@ class Borrow extends Controller {
         } else {
             $account = Auth::user();
             $borrow = TblBorrow:: where('username', $account->username)
-                    ->where('booking_status', 0) 
+                    ->where('booking_status', 0)
                     ->orWhere('booking_status', 1)
                     ->update(['booking_status' => 1, 'booking_time' => $request->input_booking_time]);
             $log = new TblLog();

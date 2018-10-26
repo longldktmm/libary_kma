@@ -166,7 +166,7 @@ class Borrow extends Controller {
             $document->borrow_by = null;
             $document->save;
         }
-        if ($borrow->booking_status != 4) {
+        if ($document != "" && $borrow->booking_status != 4) {
             $documentStatistics = TblStatistics::where('document_name', $document->document_name)
                     ->where('author', $document->author)
                     ->where('type', $document->type)
