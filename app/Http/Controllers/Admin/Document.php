@@ -54,7 +54,7 @@ class Document extends Controller {
             $document->save();
             //Tao Log
             $log = new TblLog();
-            $log->message = "Đã sửa một tài liệu ".$document->id;
+            $log->message = "Đã sửa một tài liệu " . $document->id;
             $log->created_by = Auth::user()->username;
             $log->save();
             return redirect()->back()->with('success', 'Thêm thành công')->withInput();
@@ -80,11 +80,12 @@ class Document extends Controller {
         $document->delete();
         //Tao Log
         $log = new TblLog();
-        $log->message = "Đã xóa một tài liệu".$document->id;
+        $log->message = "Đã xóa một tài liệu" . $document->id;
         $log->created_by = Auth::user()->username;
         $log->save();
         return redirect()->back()->with('success', 'Xóa thành công');
     }
+
     public function getDetail($id) {
         $data['document'] = TblDocument::find($id);
         if ($data['document'] == "")
@@ -94,7 +95,11 @@ class Document extends Controller {
         $data['department'] = TblDepartment::all();
         return view('admin/document/edit', $data);
     }
+
     public function getEdit($id) {
+        $data['type'] = TblType::all();
+        $data['status'] = TblStatus::all();
+        $data['department'] = TblDepartment::all();
         $data['document'] = TblDocument::find($id);
         if ($data['document'] == "")
             return redirect()->back()->withErrors("Tài liệu không tồn tại")->withInput();
@@ -136,12 +141,16 @@ class Document extends Controller {
             $document->type = $request->input_type;
             $document->status = $request->input_status;
             $document->review = $request->input_review;
-            $document->borrow_by = $request->input_borrow_by;
+            if ($document->borrow_by == "") {
+                $document->borrow_by = null;
+            } else {
+                $document->borrow_by = $request->input_borrow_by;
+            }
             $document->updated_by = Auth::user()->username;
             $document->save();
             //Tao Log
             $log = new TblLog();
-            $log->message = "Đã sửa một tài liệu ".$document->id;
+            $log->message = "Đã sửa một tài liệu " . $document->id;
             $log->created_by = Auth::user()->username;
             $log->save();
             return redirect(url('admin/document/all'))->with('success', 'Sửa thành công');

@@ -33,14 +33,13 @@
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
-
             <header class="main-header">
                 <!-- Logo -->
                 <a href="" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>K</b>MA</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>KMA</b>LIBARY</span>
+                    <span class="logo-lg"><b>KMA</b>LIBRARY</span>
                 </a>
             </header>
             <!-- Left side column. contains the logo and sidebar -->
@@ -76,7 +75,6 @@
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 @yield('content')
-
             </div>
             <!-- /.content-wrapper -->
             <footer class="main-footer">
@@ -86,20 +84,6 @@
                 <strong>Copyright &copy; 2018-2018  <a href="http://kmalibrary.tk">Thực tập cơ sở Demo</a>.</strong> All rights
                 reserved.
             </footer>
-
-            <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-                <!-- Create the tabs -->
-                <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                    <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-                    <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-                </ul>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <!-- Home tab content -->
-                    <div class="tab-pane" id="control-sidebar-home-tab">
-                    </div>
-            </aside>
         </div>
         @yield('script')
     </body>

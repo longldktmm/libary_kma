@@ -41,7 +41,6 @@
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
-
             <header class="main-header">
                 <!-- Logo -->
                 <a href="{{url('home')}}" class="logo">
@@ -52,7 +51,10 @@
                 </a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top">
-
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
                             <!-- Logout -->
@@ -113,23 +115,9 @@
                 <div class="pull-right hidden-xs">
                     <b>Version</b> 1.0.0
                 </div>
-                <strong>Copyright &copy; 2018-2018 <a href="http://kmalibary.tk">Thực tập cơ sở Demo</a>.</strong> All rights
+                <strong>Copyright &copy; 2018-2018 <a href="http://kmalibrary.tk">Thực tập cơ sở Demo</a>.</strong> All rights
                 reserved.
             </footer>
-
-            <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-                <!-- Create the tabs -->
-                <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                    <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-                    <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-                </ul>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <!-- Home tab content -->
-                    <div class="tab-pane" id="control-sidebar-home-tab">
-                    </div>
-            </aside>
         </div>
         <!-- ./wrapper -->
 
