@@ -23,12 +23,13 @@ class LoginController extends Controller {
 
     public function postLogin(Request $request) {
         $rules = [
-            'username' => 'required|min:1|max:255',
+            'username' => 'required|min:1|max:255|regex:/^[a-zA-Z0-9\-]+$/',
             'password' => 'required|min:4|max:255'
         ];
         $messages = [
             'username.required' => 'Tên đăng nhập là trường bắt buộc',
             'username.min' => 'Tên đăng nhập không được để trống',
+            'username.regex' => 'Tên đăng nhập chứa ký tự đặc biệt',
             'username.max' => 'Tên đăng nhập tối đa 255 ký tự',
             'password.required' => 'Mật khẩu là trường bắt buộc',
             'password.min' => 'Mật khẩu phải chứa ít nhất 4 ký tự',
