@@ -67,8 +67,8 @@
                                 <td>{{$row->classroom}}</td>
                                 <td>{{$row->course}}</td>
                                 <td>{{$row->department}}</td>
-                                <td><div style="max-height: 100px; overflow-y: scroll">{{$row->address}}</div></td>
-                                <td><div style="max-height: 100px; overflow-y: scroll">{{$row->avatar}}</div></td>
+                                <td><div style="max-height: 100px; max-width: 150px;overflow: scroll">{{$row->address}}</div></td>
+                                <td><div style="max-height: 100px; max-width: 150px;overflow: scroll">{{$row->avatar}}</div></td>
                                 <td>{{$row->created_by}}</td>
                                 <td>{{$row->updated_at}}</td> 
                                 <td><a href="{{url('admin/account/edit')}}/{{$row->id}}"><button type="submit" class="btn btn-primary"> Sửa </button></a></td>

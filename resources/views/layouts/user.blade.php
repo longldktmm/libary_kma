@@ -78,7 +78,11 @@
                             <img src="{{Auth::user()->avatar}}" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p>{{Auth::user()->name}}<br>{{Auth::user()->username}}<br>{{Auth::user()->role}}</p>
+                            <p>{{Auth::user()->name}}<br>{{Auth::user()->username}}<br>{{Auth::user()->role}}
+                                @if (Auth::user()->role == "Admin")
+                                <a href="{{url('admin')}}"><i class="fa fa-circle-o text-red"></i> <span>Trang quản trị</span></a>
+                                @endif
+                            </p>
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->

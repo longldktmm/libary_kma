@@ -110,11 +110,12 @@ class Borrow extends Controller {
 
     public function bookingDelete(Request $request) {
         $rules = [
-            'input_document_code' => 'required| string| max: 36',
+            'input_document_code' => 'required| string| max: 36 | regex:/^[a-zA-Z0-9\-]+$/',
         ];
         $messages = [
             'input_document_code.required' => 'Phải chọn một tài liệu',
-            'input_document_code.max' => ' Mã phiếu mượn quá dài'
+            'input_document_code.max' => ' Mã phiếu mượn quá dài',
+            'input_document_code.regex' => ' Mã phiếu mượn chứa ký tự đặc biệt'
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -154,11 +155,12 @@ class Borrow extends Controller {
 
     public function bookingSetTimeAndSentRequest(Request $request) {
         $rules = [
-            'input_booking_time' => 'required | date_format:y/m/d',
+            'input_booking_time' => 'required | date_format:y/m/d|regex:/^\d\d\/\d\d\/\d\d$/',
         ];
         $messages = [
             'input_booking_time.required' => 'Thời gian hẹn không được để trống',
             'input_booking_time.date_format' => 'Thời gian hẹn phải có định dạng thời gian Năm-Tháng-Ngày',
+            'input_booking_time.regex' => 'Chứa ký tự đặc biệt',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -167,7 +169,8 @@ class Borrow extends Controller {
         } else {
             $account = Auth::user();
             $borrow = TblBorrow:: where('username', $account->username)
-                    ->where('booking_status', 0)
+                    ->where('booking_status', 0) 
+                    ->orWhere('booking_status', 1)
                     ->update(['booking_status' => 1, 'booking_time' => $request->input_booking_time]);
             $log = new TblLog();
             $log->message = $account->username . " đã xin xác nhận phiếu hẹn ";

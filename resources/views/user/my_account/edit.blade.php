@@ -55,41 +55,39 @@
             </div>
             <!-- text input -->
             <div class="form-group">
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Quyền</label>
-                    <input  id = "input_role" name = "input_role" type="text" class="form-control" value="{{$account->role}}" disabled>
-                </div>
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Lớp</label>
-                    <input  id = "input_classroom" name = "input_classroom" type="text" class="form-control" value="{{$account->classroom}}" disabled>
-                </div>
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Khóa học</label>
-                    <input  id = "input_course" name = "input_course" type="text" class="form-control" value="{{$account->course}}" disabled>
-                </div>
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Khoa</label>
-                    <input  id = "input_department" name = "input_department" type="text" class="form-control" value="{{$account->department}}" disabled>
-                </div>
-                <!-- text input -->
-                <div class="form-group">
-                    <label>Đường dẫn ảnh đại diện</label>
-                    <input  id = "input_avatar" name = "input_avatar" type="text" class="form-control" value="{{$account->avatar}}">
-                </div>
-                <!-- textarea -->
-                <div class="form-group">
-                    <label>Địa chỉ</label>
-                    <textarea  id = "input_address" name = "input_address" class="form-control" rows="3" value="{{$account->address}}" type="text">{{$account->address}}</textarea>
-                </div>
-                <div class="box-footer">
-                    <button type="submit" class="btn btn-primary" value="submit"> Sửa</button>
-                    <button type="reset" class="btn btn-primary"> Làm lại</button>
-                    <a href="{{url('home')}}"><button type="button" class="btn btn-primary"> Trở về</button></a>
-                </div>
+                <label>Quyền</label>
+                <input  id = "input_role" name = "input_role" type="text" class="form-control" value="{{$account->role}}" disabled>
+            </div>
+            <!-- text input -->
+            <div class="form-group">
+                <label>Lớp</label>
+                <input  id = "input_classroom" name = "input_classroom" type="text" class="form-control" value="{{$account->classroom}}" disabled>
+            </div>
+            <!-- text input -->
+            <div class="form-group">
+                <label>Khóa học</label>
+                <input  id = "input_course" name = "input_course" type="text" class="form-control" value="{{$account->course}}" disabled>
+            </div>
+            <!-- text input -->
+            <div class="form-group">
+                <label>Khoa</label>
+                <input  id = "input_department" name = "input_department" type="text" class="form-control" value="{{$account->department}}" disabled>
+            </div>
+            <!-- text input -->
+            <div class="form-group">
+                <label>Đường dẫn ảnh đại diện</label>
+                <input  id = "input_avatar" name = "input_avatar" type="text" class="form-control" value="{{$account->avatar}}">
+            </div>
+            <!-- textarea -->
+            <div class="form-group">
+                <label>Địa chỉ</label>
+                <textarea  id = "input_address" name = "input_address" class="form-control" rows="3" value="{{$account->address}}" type="text">{{$account->address}}</textarea>
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary" value="submit"> Sửa</button>
+                <button type="reset" class="btn btn-primary"> Làm lại</button>
+                <a href="{{url('home')}}"><button type="button" class="btn btn-primary"> Trở về</button></a>
+            </div>
         </form>
         <
 </section>

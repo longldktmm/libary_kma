@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,12 +12,13 @@ use App\TblDepartment;
 use Validator;
 use DB;
 use Webpatser\Uuid\Uuid;
+
 class Account extends Controller {
 
     public function postAdd(Request $request) {
         $rules = [
             'input_role' => 'required | max: 255',
-            'input_user_name' => 'required | max: 255',
+            'input_user_name' => 'required | max: 255 | min:4',
             'input_username' => 'required | unique:users,username| max: 255',
             'input_classroom' => 'required| max: 255',
             'input_course' => 'required| max: 255',
@@ -28,7 +31,7 @@ class Account extends Controller {
             'input_avatar.required' => 'Đường dẫn ảnh đại diện không được để trống',
             'input_avatar.url' => 'Đường dẫn ảnh phải là một liên kết',
             'input_address.required' => 'Địa chỉ không được để trống',
-            'input_classroom.required' => 'Địa chỉ không được để trống',
+            'input_classroom.required' => 'Lớp không được để trống',
             'input_course.required' => 'Khóa học không được để trống',
             'input_user_name.required' => 'Tên người dùng không được để trống',
             'input_role.required' => 'Quyền không được để trống',
@@ -44,7 +47,8 @@ class Account extends Controller {
             'input_role.max' => 'Quyền > 255 ký tự',
             'input_user_name.max' => 'Tên người dùng > 255 ký tự',
             'input_department.max' => 'Tên khoa > 255 ký tự',
-            'input_username.max' => 'Mã người > 255 ký tự',
+            'input_username.max' => 'Mã người dùng > 255 ký tự',
+            'input_username.min' => 'Mã người dùng < 4 ký tự',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -80,15 +84,17 @@ class Account extends Controller {
         $data['department'] = TblDepartment::all();
         return view('admin/account/add', $data);
     }
+
     public function getHistory() {
-        $data['log'] = DB::table('log')->where('message', 'LIKE',"Đã thêm một tài khoản%")
-                ->where('message', 'LIKE',"Đã sửa một tài khoản%")->where('message', 'LIKE',"Đã thêm một tài khoản%")
-                ->orWhere('message', 'LIKE',"Đã xóa một tài khoản%")
-                ->orWhere('message', 'LIKE',"Đã tự sửa%")
+        $data['log'] = DB::table('log')->where('message', 'LIKE', "Đã thêm một tài khoản%")
+                ->where('message', 'LIKE', "Đã sửa một tài khoản%")->where('message', 'LIKE', "Đã thêm một tài khoản%")
+                ->orWhere('message', 'LIKE', "Đã xóa một tài khoản%")
+                ->orWhere('message', 'LIKE', "Đã tự sửa%")
                 ->orderBy('created_at', 'desc')
                 ->get();
         return view('admin/account/history', $data);
     }
+
     public function getAll() {
         $data['account'] = User::all()->sortByDesc('updated_at');
         return view('admin/account/all', $data);

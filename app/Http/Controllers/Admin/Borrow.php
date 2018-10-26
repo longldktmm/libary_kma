@@ -85,18 +85,33 @@ class Borrow extends Controller {
     }
 
     public function getAdd($username) {
-        $data['user'] = User::where('username', $username)->first();
-        $data['borrow'] = DB::table('borrow')
-                ->where('username', $username)
-                ->join('document', 'borrow.document_code', '=', 'document.id')
-                ->join('status_booking', 'status_booking.id', '=', 'borrow.booking_status')
-                ->select(['borrow.id as id', 'expiry', 'booking_time',
-                    'booking_status_name', 'type', 'department',
-                    'author', 'document_code', 'username',
-                    'booking_status', 'document_name', 'booking_code', 'borrow.created_at as created_at', 'document_status'])
-                ->get();
+        $rules = [
+            'username' => 'required| max: 255 | regex:/^[a-zA-Z0-9\-]+$/',
+        ];
+        $messages = [
+            'username.regex' => 'Mã người dùng chứa ký tự đặc biệt',
+            'username.required' => 'Mã người dùng không được để trống',
+            'username.max' => 'Mã người dùng quá dài',
+        ];
+        $validator = Validator::make(array('username' => $username), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            $data['user'] = User::where('username', $username)->first();
+            if ($data['user'] == "")
+                return redirect()->back()->withErrors("Mã người dùng không tồn tại")->withInput();
+            $data['borrow'] = DB::table('borrow')
+                    ->where('username', $username)
+                    ->join('document', 'borrow.document_code', '=', 'document.id')
+                    ->join('status_booking', 'status_booking.id', '=', 'borrow.booking_status')
+                    ->select(['borrow.id as id', 'expiry', 'booking_time',
+                        'booking_status_name', 'type', 'department',
+                        'author', 'document_code', 'username',
+                        'booking_status', 'document_name', 'booking_code', 'borrow.created_at as created_at', 'document_status'])
+                    ->get();
 //        $data['borrow'] = TblBorrow::where('username', $username)->get();
-        return view('admin/borrow/borrow', $data);
+            return view('admin/borrow/borrow', $data);
+        }
     }
 
     public function getHome() {
@@ -105,12 +120,13 @@ class Borrow extends Controller {
 
     public function postHome(Request $request) {
         $rules = [
-            'input_username' => 'required| max: 255 | exists:users,username',
+            'input_username' => 'required| max: 255 | regex:/^[a-zA-Z0-9\-]+$/|exists:users,username',
         ];
         $messages = [
             'input_username.max' => 'Mã người dùng quá dài',
             'input_username.required' => 'Mã người dùng không được để trống',
             'input_username.exists' => 'Mã người dùng không tồn tại',
+            'input_username.regex' => 'Mã người dùng chứa ký tự đặc biệt',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -212,7 +228,7 @@ class Borrow extends Controller {
                 ->select(['borrow.id as id', 'expiry', 'booking_time',
                     'booking_status_name', 'type', 'department',
                     'author', 'document_code', 'username',
-                    'booking_status', 'document_name', 'booking_code','borrow.created_at','document_status'])
+                    'booking_status', 'document_name', 'booking_code', 'borrow.created_at', 'document_status'])
                 ->get();
         return view('admin/borrow/all', $data);
     }

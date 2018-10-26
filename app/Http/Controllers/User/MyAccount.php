@@ -19,14 +19,14 @@ class MyAccount extends Controller {
 
     public function post(Request $request) {
         $rules = [
-            'input_address' => 'required',
-            'input_avatar' => 'required',
-            'input_new_password' => 'required_with: input_password',
+            'input_address' => 'required|max:2000',
+            'input_avatar' => 'required| max: 1000',
         ];
         $messages = [
             'input_avatar.required' => 'Đường dẫn ảnh đại diện không được để trống',
+            'input_avatar.max' => 'Đường dẫn ảnh đại diện phải nhỏ hơn 1000 ký tự',
             'input_address.required' => 'Địa chỉ không được để trống',
-            'input_new_password.required' => 'Mật khẩu mới không được để trống',
+            'input_address.max' => 'Địa chỉ phải nhỏ hơn 2000 ký tự',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -41,6 +41,7 @@ class MyAccount extends Controller {
 //            }
             $account->classroom = $request->input_classroom;
             $account->avatar = $request->input_avatar;
+            $account->address = $request->input_address;
             $account->updated_by = Auth::user()->username;
             $account->save();
             //Tao Log
