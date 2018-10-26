@@ -169,7 +169,7 @@ class Borrow extends Controller {
         if ($borrow == "")
             return redirect()->back()->withErrors("Phiếu mượn không tồn tại")->withInput();
         //Tim tai lieu
-        $document = TblDocument::find($borrow->document_code);
+        $document = TblDocument::where('id', $borrow->document_code)->first();
 //Kiem tra tai lieu ton tai
         if ($document != "" && $borrow->booking_status == 5) {
             $document->borrow_by = null;
