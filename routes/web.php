@@ -82,7 +82,9 @@ Route::group(['middleware' => 'auth'], function() {
     });
 });
 
-
+Route::get('/',function(){
+    return redirect('home');
+});
 Route::get('/login', 'Auth\LoginController@getLogin');
 Route::post('/login', 'Auth\LoginController@postLogin');
 Route::get('/logout', 'Auth\LoginController@getLogout');
