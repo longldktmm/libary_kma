@@ -173,7 +173,7 @@ class Borrow extends Controller {
 //Kiem tra tai lieu ton tai
         if ($document != "" && $borrow->booking_status == 5) {
             $document->borrow_by = null;
-            $document->save;
+            $document->save();
         }
         if ($document != "" && $borrow->booking_status != 4) {
             $documentStatistics = TblStatistics::where('document_name', $document->document_name)
