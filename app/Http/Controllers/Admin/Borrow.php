@@ -48,9 +48,9 @@ class Borrow extends Controller {
             $user = User::where('username', $username)->first();
             if ($user == "")
                 return redirect()->back()->withErrors("Người dùng không tồn tại")->withInput();
-            if ($documentStatistics->department == "Mật mã" && $user->department != "Mật mã")
+            if ($document->department == "Mật mã" && $user->department != "Mật mã")
                 return redirect()->back()->withErrors("Chỉ khoa mật mã mới được mượn tài liệu này")->withInput();
-            if ($documentStatistics->type == "Giáo án" && $user->role != "Giáo viên")
+            if ($document->type == "Giáo án" && $user->role != "Giáo viên")
                 return redirect()->back()->withErrors("Chỉ giáo viên mới được mượn tài liệu này")->withInput();
 //Kiểm tra số lượng, hết hạn            
             $borrow = TblBorrow::where('username', $username)->where('booking_status', 5)->orWhere('booking_status', 2)->get();
