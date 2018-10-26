@@ -173,7 +173,7 @@ class Borrow extends Controller {
                     ->where('department', $document->department)
                     ->first();
             if ($documentStatistics != null) {
-                $documentStatistics->ready--;
+                $documentStatistics->ready++;
                 $documentStatistics->save();
             }
         }
