@@ -12,7 +12,7 @@
  */
 Route::group(['middleware' => 'auth'], function() {
     Route::get('', "User\SuggestDocument@getAll");
-    Route::get('home', "User\SuggestDocument@getAll");
+    Route::get('/home', "User\SuggestDocument@getAll");
     Route::get('/myaccount', "User\MyAccount@get");
     Route::post('/myaccount', "User\MyAccount@post");
     Route::post('/myaccount/changepassword', "User\MyAccount@changePwd");
@@ -80,10 +80,6 @@ Route::group(['middleware' => 'auth'], function() {
             return view('admin/coming_soon', []);
         });
     });
-});
-
-Route::get('/',function(){
-    return redirect('home');
 });
 Route::get('/login', 'Auth\LoginController@getLogin');
 Route::post('/login', 'Auth\LoginController@postLogin');
