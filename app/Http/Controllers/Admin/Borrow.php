@@ -53,7 +53,7 @@ class Borrow extends Controller {
             if ($document->type == "Giáo án" && $user->role != "Giáo viên")
                 return redirect()->back()->withErrors("Chỉ giáo viên mới được mượn tài liệu này")->withInput();
 //Kiểm tra số lượng, hết hạn            
-            $borrow = TblBorrow::where('username', $username)->where('booking_status', 5)->orWhere('booking_status', 2)->get();
+            $borrow = TblBorrow::where('username', $username)->get();
 //            return $borrow;
             if (count($borrow) >= 3)
                 return redirect()->back()->withErrors("Chỉ được mượn tổng tối đa 3 quyển")->withInput();
