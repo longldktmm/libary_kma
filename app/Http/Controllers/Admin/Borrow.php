@@ -65,13 +65,13 @@ class Borrow extends Controller {
                     return redirect()->back()->withErrors("Người dùng đã đăng ký mượn quyển này")->withInput();
                 } else {
                     $document2 = TblDocument::where('id', $data->document_code)
-                            ->where('document_name', $document->document_name)
+                            ->where('document_name ', $document->document_name)
                             ->where('author', $document->author)
                             ->where('type', $document->type)
                             ->where('department', $document->department)
                             ->first();
                     if ($document2 != "")
-                        return redirect()->back()->withErrors("Người dùng đang mượn quyển này")->withInput();
+                        return redirect()->back()->withErrors("Người dùng đang mượn/đăng ký tài liệu cùng bộ")->withInput();
                 }
             }
             //Upload so luong
