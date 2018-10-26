@@ -11,6 +11,7 @@ use App\TblType;
 use App\TblDocument;
 use App\TblDepartment;
 use Validator;
+use App\TblBorrow;
 
 class Document extends Controller {
 
@@ -22,7 +23,7 @@ class Document extends Controller {
             'input_publishing_company' => 'required| max: 255',
             'input_type' => 'required| max: 255',
             'input_status' => 'required| max: 255',
-            'input_review' => 'max: 255',
+            'input_review' => 'max: 2000',
             'input_department' => 'required | max: 255',
         ];
         $messages = [
@@ -115,7 +116,7 @@ class Document extends Controller {
             'input_borrow_by' => 'max: 255',
             'input_department' => 'required| max: 255',
             'input_status' => 'required| max: 255',
-            'input_review' => 'max: 255',
+            'input_review' => 'max: 2000',
         ];
         $messages = [
             'input_review.max' => 'Giới thiệu quá dài',
@@ -141,10 +142,15 @@ class Document extends Controller {
             $document->type = $request->input_type;
             $document->status = $request->input_status;
             $document->review = $request->input_review;
-            if ($document->borrow_by == "") {
+            if ($request->input_borrow_by == "") {
                 $document->borrow_by = null;
             } else {
-                $document->borrow_by = $request->input_borrow_by;
+                $borrow = TblDocument::find($request->input_borrow_by);
+                if ($borrow == "") {
+                    return redirect()->back()->withErrors("Phiếu mượn khôgn tồn tại")->withInput();
+                } else {
+                    $document->borrow_by = $request->input_borrow_by;
+                }
             }
             $document->updated_by = Auth::user()->username;
             $document->save();

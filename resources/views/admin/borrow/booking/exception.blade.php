@@ -36,18 +36,11 @@
             <button type="submit" class="btn btn-primary" value="submit"> Làm mới</button>
         </div>
     </form>
-    <form action="{{url('borrow/booking/set-booking-time')}}" enctype="multipart/form-data" method="post">
+    <form action="{{url('admin/coming')}}" enctype="multipart/form-data" method="get">
         <div class="box-footer">
             {{csrf_field()}}
             <input type="text" id="input_booking_time" name="input_booking_time" value="" hidden="true">
             <button type="submit" class="btn btn-primary" value="submit"> Từ chối tất cả</button>
-        </div>
-    </form>
-    <form action="{{url('borrow/booking/set-booking-time')}}" enctype="multipart/form-data" method="post">
-        <div class="box-footer">
-            {{csrf_field()}}
-            <input type="text" id="input_booking_time" name="input_booking_time" value="" hidden="true">
-            <button type="submit" class="btn btn-primary" value="submit"> Xử lý sau</button>
         </div>
     </form>
     <!-- /.row -->
