@@ -66,7 +66,7 @@ class Borrow extends Controller {
                 return redirect()->back()->withErrors("Error 03: Người dùng không tồn tại")->withInput();
             if ($documentStatistics->department == "Mật mã" && $user->department != "Mật mã")
                 return redirect()->back()->withErrors("Error 04: Bạn không có quyền mượn quyển này")->withInput();
-            if ($documentStatistics->type == "Giáo án" && $user->role != "Sinh viên")
+            if ($documentStatistics->type == "Giáo án" && $user->role != "Giáo viên")
                 return redirect()->back()->withErrors("Error 05: Bạn không có quyền mượn quyển này")->withInput();
 //Kiem tra so luong da muon + trung
 //            $borrow = TblBorrow::where('username', $user->username)->where('booking_status', 4)->first();
