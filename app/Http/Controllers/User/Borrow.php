@@ -88,7 +88,7 @@ class Borrow extends Controller {
 //Kiểm tra xem mượn chưa
             foreach ($borrow as $data) {
                 if ($data->expiry < 0)
-                    return redirect()->back()->withErrors("Error 08: BPhải trả tài liệu đã hết hạn mới được mượn tiếp")->withInput();
+                    return redirect()->back()->withErrors("Error 08: Bạn phải trả tài liệu đã hết hạn mới được mượn tiếp")->withInput();
                 if ($data->document_code == $document->id && $data->booking_status != 5)
                     return redirect()->back()->withErrors("Error 09: Bạn đã đăng ký muốn mượn quyển này")->withInput();
                 if ($data->document_code != $document->id && $data->booking_status == 5) {
@@ -157,7 +157,7 @@ class Borrow extends Controller {
                     }
                 }
             } else {
-                return redirect()->back()->withErrors("Không thế xóa bản ghi đang chờ xử lý")->withInput();
+                return redirect()->back()->withErrors("Không thế xóa bản ghi đang chờ xử lý hoặc đã nhận sách")->withInput();
             }
             return redirect()->back()->with('success', 'Xóa thành công');
         }

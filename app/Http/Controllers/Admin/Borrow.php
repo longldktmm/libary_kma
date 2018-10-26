@@ -56,13 +56,23 @@ class Borrow extends Controller {
             $borrow = TblBorrow::where('username', $username)->where('booking_status', 5)->orWhere('booking_status', 2)->get();
 //            return $borrow;
             if (count($borrow) >= 3)
-                return redirect()->back()->withErrors("Error 07: Chỉ được mượn tổng tối đa 3 quyển")->withInput();
+                return redirect()->back()->withErrors("Chỉ được mượn tổng tối đa 3 quyển")->withInput();
 //Kiểm tra xem mượn chưa
             foreach ($borrow as $data) {
                 if ($data->expiry < 0)
-                    return redirect()->back()->withErrors("Phải trả tài liệu đã hết hạn mới được mượn tiếp")->withInput();
-                if ($data->document_code == $request->input_document_code)
-                    return redirect()->back()->withErrors("Người dùng đang mượn quyển này")->withInput();
+                    return redirect()->back()->withErrors("Người dùng phải trả tài liệu đã hết hạn mới được mượn tiếp")->withInput();
+                if ($data->document_code == $document->id && $data->booking_status != 5)
+                    return redirect()->back()->withErrors("Người dùng đã đăng ký muốn mượn quyển này")->withInput();
+                if ($data->document_code != $document->id && $data->booking_status == 5) {
+                    $document2 = TblDocument::where('id', $data->document_code)
+                            ->where('author', $document->document_name)
+                            ->where('author', $document->author)
+                            ->where('type', $document->type)
+                            ->where('department', $document->department)
+                            ->first();
+                    if ($document2 != "")
+                        return redirect()->back()->withErrors("Người dùng đang mượn quyển này")->withInput();
+                }
             }
             //Upload so luong
             $documentStatistics = TblStatistics::where('document_name', $document->document_name)
@@ -387,6 +397,7 @@ class Borrow extends Controller {
                 if ($document == null) {
                     return redirect()->back()->withErrors("Mã tài liệu không còn tồn tại")->withInput();
                 } else {
+                    $document->borrow_by = $borrow->id;
                     $document->save();
                 }
                 $log = new TblLog();
