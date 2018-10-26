@@ -64,6 +64,21 @@ class Borrow extends Controller {
                 if ($data->document_code == $request->input_document_code)
                     return redirect()->back()->withErrors("Người dùng đang mượn quyển này")->withInput();
             }
+            //Upload so luong
+            $documentStatistics = TblStatistics::where('document_name', $document->document_name)
+                    ->where('author', $document->author)
+                    ->where('type', $document->type)
+                    ->where('department', $document->department)
+                    ->first();
+            if ($documentStatistics != null) {
+                if ($documentStatistics->ready <= 0) {
+                    return redirect()->back()->withErrors("Tài liệu loại này đã bị đặt online hết")->withInput();
+                }
+                $documentStatistics->ready--;
+                $documentStatistics->save();
+            } else {
+                return redirect()->back()->withErrors("Tài liệu chưa được cập nhập trên hệ thống")->withInput();
+            }
 //Tao phieu muon
             $borrow = new TblBorrow();
             $borrow->id = Uuid::generate(4);
@@ -77,16 +92,6 @@ class Borrow extends Controller {
 //Update tai lieu
             $document->borrow_by = $borrow->id;
             $document->save();
-//Upload so luong
-            $documentStatistics = TblStatistics::where('document_name', $document->document_name)
-                    ->where('author', $document->author)
-                    ->where('type', $document->type)
-                    ->where('department', $document->department)
-                    ->first();
-            if ($documentStatistics != null) {
-                $documentStatistics->ready--;
-                $documentStatistics->save();
-            }
 //Tao Log
             $log = new TblLog();
             $log->message = "Đã cho " . $username . " mượn một tài liệu mã " . $borrow->document_code;
