@@ -168,11 +168,10 @@ class Borrow extends Controller {
         $borrow = TblBorrow::where('id', $id)->first();
         if ($borrow == "")
             return redirect()->back()->withErrors("Phiếu mượn không tồn tại")->withInput();
-        $borrow->delete();
         //Tim tai lieu
         $document = TblDocument::find($borrow->document_code);
 //Kiem tra tai lieu ton tai
-        if ($document != "" && is_null($document->borrow_by) == false && $borrow->booking_status == 5) {
+        if ($document != "" && $borrow->booking_status == 5) {
             $document->borrow_by = null;
             $document->save;
         }
@@ -192,6 +191,7 @@ class Borrow extends Controller {
         $log->message = "Đã xóa phiếu mượn " . $borrow->id;
         $log->created_by = Auth::user()->username;
         $log->save();
+        $borrow->delete();
         return redirect()->back()->with('success', 'Xóa thành công');
     }
 
