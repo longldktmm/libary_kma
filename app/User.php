@@ -4,13 +4,11 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 class User extends Authenticatable {
 
-    public $autoincrement = false;
+    protected $primaryKey = 'id';
 
-    use Notifiable;
-
+    public $incrementing = false;
     /**
      * The attributes that are mass assignable.
      *

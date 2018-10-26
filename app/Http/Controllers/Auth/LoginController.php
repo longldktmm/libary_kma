@@ -23,14 +23,16 @@ class LoginController extends Controller {
 
     public function postLogin(Request $request) {
         $rules = [
-            'username' => 'required|min:1',
-            'password' => 'required|min:4'
+            'username' => 'required|min:1|max:255',
+            'password' => 'required|min:4|max:255'
         ];
         $messages = [
             'username.required' => 'Tên đăng nhập là trường bắt buộc',
             'username.min' => 'Tên đăng nhập không được để trống',
+            'username.max' => 'Tên đăng nhập tối đa 255 ký tự',
             'password.required' => 'Mật khẩu là trường bắt buộc',
-            'password.min' => 'Mật khẩu phải chứa ít nhất 8 ký tự',
+            'password.min' => 'Mật khẩu phải chứa ít nhất 4 ký tự',
+            'password.max' => 'Mật khẩu tối đa 255 ký tự',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
 
@@ -39,7 +41,7 @@ class LoginController extends Controller {
         } else {
             $username = $request->input('username');
             $password = $request->input('password');
-
+//            $password = bcrypt($password);
             if (Auth::attempt(['username' => $username, 'password' => $password])) {
                 //Tao Log
                 $log = new TblLog();
@@ -47,7 +49,6 @@ class LoginController extends Controller {
                 $log->created_by = "System";
                 $log->save();
                 if (Auth::user()->role == "Admin") {
-//                    return $next($request); 
                     return redirect('/admin');
                 } else {
                     return redirect('');
