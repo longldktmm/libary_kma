@@ -61,9 +61,9 @@ class Borrow extends Controller {
             foreach ($borrow as $data) {
                 if ($data->expiry < 0)
                     return redirect()->back()->withErrors("Người dùng phải trả tài liệu đã hết hạn mới được mượn tiếp")->withInput();
-                if ($data->document_code == $document->id && $data->booking_status != 5)
-                    return redirect()->back()->withErrors("Người dùng đã đăng ký muốn mượn quyển này")->withInput();
-                if ($data->document_code != $document->id && $data->booking_status == 5) {
+                if ($data->document_code == $document->id) {
+                    return redirect()->back()->withErrors("Người dùng đã đăng ký mượn quyển này")->withInput();
+                } else {
                     $document2 = TblDocument::where('id', $data->document_code)
                             ->where('author', $document->document_name)
                             ->where('author', $document->author)
