@@ -73,7 +73,7 @@
                                 <td>{{$row->note}}</td>
                                 <td>{{$row->booking_status_name}}</td>
                                 <td>
-                                    <form action="{{url('admin/borrow/delete/{id}')}}" enctype="multipart/form-data" method="post">
+                                    <form action="{{url('admin/borrow/booking/allow/exception')}}" enctype="multipart/form-data" method="post">
                                         <div class="box-footer">
                                             {{csrf_field()}}
                                             <input type="text" id="input_borrow_id" name="input_borrow_id" value="{{$row->id}}" hidden="true">

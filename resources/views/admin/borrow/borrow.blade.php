@@ -60,14 +60,14 @@
                     <a href="{{url('admin/borrow')}}"><button type="button" class="btn btn-primary"> Trở về</button></a>
                 </div>
             </form>
-            <form action="{{url('admin/borrow/allow-all-user')}}" enctype="multipart/form-data"  role="form" method="post">
+            <form action="{{url('admin/coming')}}" enctype="multipart/form-data"  role="form" method="get">
                 {{csrf_field()}}
                 <div class="box-footer">
                     <input id = "input_username" name = "input_username" value="{{$user->username}}" type="hidden" class="form-control">
                     <button type="submit" class="btn btn-primary"> Gói mượn: Đã nhận</button>
                 </div>
             </form>
-            <form action="{{url('admin/borrow/delete-all-user')}}" enctype="multipart/form-data"  role="form" method="post">
+            <form action="{{url('admin/coming')}}" enctype="multipart/form-data"  role="form" method="get">
                 {{csrf_field()}}
                 <div class="box-footer">
                     <input id = "input_username" name = "input_username" value="{{$user->username}}" type="hidden" class="form-control">
@@ -119,6 +119,11 @@
                                             <button type="submit" class="btn btn-primary" value="submit"> Giao</button>
                                         </form>
                                         @endif
+                                    </td>
+                                    <td>        
+                                        @if($row->booking_status_name != "Đã lấy tài liệu") 
+                                    <td><a href="{{url('admin/borrow/delete')}}/{{$row->id}}"><button type="submit" class="btn btn-primary"> Xóa</button></a></td>
+                                    @endif
                                     </td>
                                 </tr>
                                 @endforeach

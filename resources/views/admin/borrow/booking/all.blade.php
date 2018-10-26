@@ -30,7 +30,7 @@
         {{session('success')}}
     </div>
     @endif
-    <form action="{{url('admin/borrow/booking/waiting')}}" enctype="multipart/form-data"  role="form" method="get">
+    <form action="{{url('admin/borrow/booking/verify')}}" enctype="multipart/form-data"  role="form" method="get">
         {{csrf_field()}}
         <div class="box-footer">
             <button type="submit" class="btn btn-primary" value="submit"> Làm mới</button>
